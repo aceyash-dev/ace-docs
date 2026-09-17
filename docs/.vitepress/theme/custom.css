@@ -1,0 +1,617 @@
+/* -------------------------------------------------------------------------- */
+/*  1. Font Imports (Add your font sources here)                              */
+/* -------------------------------------------------------------------------- */
+/* Since you are using theme-without-fonts, load your fonts here or in your   */
+/* VitePress config.js head. Example:                                         */
+/* @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap'); */
+
+/* -------------------------------------------------------------------------- */
+/*  2. Root Variables & Dark Mode Overrides                                   */
+/* -------------------------------------------------------------------------- */
+:root {
+  --ace-orange: #e66f20;
+  --ace-orange-hover: #c95d16;
+  --ace-orange-soft: #f5e3d5;
+
+  --ace-milk: #f5f1e8;
+  --ace-milk-deep: #ece6da;
+  --ace-white: #fbfaf6;
+
+  --ace-ink: #171614;
+  --ace-ink-soft: #57534d;
+  --ace-ink-muted: #858077;
+
+  --ace-line: #ded8cc;
+  --ace-line-soft: #e9e4da;
+
+  /* VitePress Brand Colors */
+  --vp-c-brand-1: var(--ace-orange);
+  --vp-c-brand-2: var(--ace-orange-hover);
+  --vp-c-brand-3: var(--ace-orange);
+
+  /* VitePress Backgrounds */
+  --vp-c-bg: var(--ace-milk);
+  --vp-c-bg-alt: var(--ace-milk-deep);
+  --vp-c-bg-elv: var(--ace-white);
+
+  /* VitePress Text */
+  --vp-c-text-1: var(--ace-ink);
+  --vp-c-text-2: var(--ace-ink-soft);
+  --vp-c-text-3: var(--ace-ink-muted);
+
+  /* VitePress Borders & Dividers */
+  --vp-c-divider: var(--ace-line);
+  --vp-c-gutter: var(--ace-line);
+
+  /* Typography */
+  --vp-font-family-base: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vp-font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Layout specifics */
+  --vp-nav-bg-color: rgba(245, 241, 232, 0.88);
+  --vp-sidebar-bg-color: var(--ace-milk);
+  --vp-code-bg: #ebe5da;
+}
+
+.dark {
+  --ace-milk: #151412;
+  --ace-milk-deep: #1b1917;
+  --ace-white: #211f1c;
+
+  --ace-ink: #f4f0e7;
+  --ace-ink-soft: #bcb6ab;
+  --ace-ink-muted: #878178;
+
+  --ace-line: #302d28;
+  --ace-line-soft: #282521;
+
+  --ace-orange: #f18436;
+  --ace-orange-hover: #ff9650;
+  --ace-orange-soft: #38271c;
+
+  --vp-c-bg: var(--ace-milk);
+  --vp-c-bg-alt: var(--ace-milk-deep);
+  --vp-c-bg-elv: var(--ace-white);
+
+  --vp-c-text-1: var(--ace-ink);
+  --vp-c-text-2: var(--ace-ink-soft);
+  --vp-c-text-3: var(--ace-ink-muted);
+
+  --vp-c-divider: var(--ace-line);
+  --vp-c-gutter: var(--ace-line);
+
+  --vp-nav-bg-color: rgba(21, 20, 18, 0.88);
+  --vp-sidebar-bg-color: var(--ace-milk);
+  --vp-code-bg: #201e1b;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  3. Base & Global Styles                                                   */
+/* -------------------------------------------------------------------------- */
+html,
+body {
+  background: var(--ace-milk);
+  color: var(--ace-ink);
+  font-family: 'Satoshi', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection,
+::-moz-selection {
+  background: var(--ace-orange-soft);
+  color: var(--ace-orange);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ace-milk);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ace-line);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ace-ink-muted);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  4. Navigation Bar                                                         */
+/* -------------------------------------------------------------------------- */
+.VPNav {
+  border-bottom: 1px solid var(--ace-line);
+}
+
+.VPNavBar {
+  background: var(--vp-nav-bg-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.VPNavBarTitle {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.VPNavBarTitle .logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.VPNavBarMenuLink {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.VPNavBarMenuLink:hover,
+.VPNavBarMenuLink.active {
+  color: var(--ace-orange);
+}
+
+/* Dropdown Menus */
+.VPNavBarMenuGroup .button {
+  font-weight: 500;
+}
+.VPNavBarMenuGroup .button:hover {
+  color: var(--ace-orange);
+}
+.VPMenu {
+  background: var(--ace-white);
+  border: 1px solid var(--ace-line);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+.VPMenu .link:hover {
+  background: var(--ace-orange-soft);
+  color: var(--ace-orange);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  5. Sidebar                                                                */
+/* -------------------------------------------------------------------------- */
+.VPSidebar {
+  background: var(--ace-milk);
+  border-right: 1px solid var(--ace-line);
+}
+
+.VPSidebarItem .text {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+/* Active item */
+.VPSidebarItem.is-active > .item .text {
+  color: var(--ace-orange);
+  font-weight: 700;
+}
+
+.VPSidebarItem.is-active > .item {
+  background: var(--ace-orange-soft);
+  border-radius: 8px;
+}
+
+/* Hover state */
+.VPSidebarItem .item:hover .text {
+  color: var(--ace-orange);
+}
+
+/* Nested project items */
+.VPSidebarItem .VPSidebarItem .item {
+  padding-left: 30px;
+}
+
+.VPSidebarItem .VPSidebarItem .item .text::before {
+  content: '•';
+  display: inline-block;
+  margin-right: 9px;
+  color: var(--ace-orange);
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  6. Documentation Content                                                  */
+/* -------------------------------------------------------------------------- */
+.VPDoc {
+  padding-bottom: 120px;
+}
+
+.VPDoc h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3.2rem, 7vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  color: var(--ace-ink);
+  margin-bottom: 24px;
+}
+
+.VPDoc h2 {
+  margin-top: 64px;
+  font-size: 1.7rem;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  border-top: 1px solid var(--ace-line-soft);
+  padding-top: 32px;
+}
+
+.VPDoc h3 {
+  margin-top: 42px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.VPDoc p {
+  line-height: 1.8;
+  color: var(--ace-ink-soft);
+  margin-bottom: 20px;
+}
+
+.VPDoc strong {
+  color: var(--ace-ink);
+  font-weight: 700;
+}
+
+.VPDoc a {
+  color: var(--ace-orange);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.VPDoc a:hover {
+  color: var(--ace-orange-hover);
+}
+
+/* Blockquotes */
+.VPDoc blockquote {
+  border-left: 4px solid var(--ace-orange);
+  background: var(--ace-orange-soft);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  color: var(--ace-ink-soft);
+  margin: 24px 0;
+}
+.VPDoc blockquote p {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  7. Hero Section (Home Page)                                               */
+/* -------------------------------------------------------------------------- */
+.VPHero .name {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.VPHero .text,
+.VPHero .tagline {
+  font-family: 'Satoshi', sans-serif;
+}
+
+.VPHero .text {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.VPHero .tagline {
+  color: var(--ace-ink-soft);
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.VPHero .actions {
+  margin-top: 32px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  8. Buttons                                                                */
+/* -------------------------------------------------------------------------- */
+.VPButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 9px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+}
+
+.VPButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 111, 32, 0.15);
+}
+
+.VPButton.brand {
+  background: var(--ace-orange);
+  border: 1px solid var(--ace-orange);
+  color: #fff;
+}
+
+.VPButton.brand:hover {
+  background: var(--ace-orange-hover);
+  border-color: var(--ace-orange-hover);
+}
+
+.VPButton.alt {
+  background: transparent;
+  border: 1px solid var(--ace-line);
+  color: var(--ace-ink);
+}
+
+.VPButton.alt:hover {
+  background: var(--ace-orange-soft);
+  border-color: var(--ace-orange);
+  color: var(--ace-orange);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  9. Code Blocks & Syntax Highlighting                                      */
+/* -------------------------------------------------------------------------- */
+div[class*='language-'],
+.vp-code-group {
+  border: 1px solid var(--ace-line);
+  border-radius: 10px;
+  background: var(--vp-code-bg);
+  margin: 20px 0;
+}
+
+div[class*='language-'] code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.9em;
+}
+
+/* Copy button */
+div[class*='language-'] > button.copy {
+  background-color: var(--ace-milk-deep);
+  border: 1px solid var(--ace-line);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+div[class*='language-'] > button.copy:hover {
+  background-color: var(--ace-orange-soft);
+  border-color: var(--ace-orange);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 10. Tables                                                                 */
+/* -------------------------------------------------------------------------- */
+.VPDoc table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--ace-line);
+}
+
+.VPDoc tr {
+  border-top: 1px solid var(--ace-line);
+  background: var(--ace-white);
+}
+
+.VPDoc tr:nth-child(even) {
+  background: var(--ace-milk-deep);
+}
+
+.VPDoc th,
+.VPDoc td {
+  border: 0;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.VPDoc th {
+  font-weight: 700;
+  background: var(--ace-milk-deep);
+  color: var(--ace-ink);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 11. Right Outline (Table of Contents)                                      */
+/* -------------------------------------------------------------------------- */
+.VPDocAsideOutline .outline-title {
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ace-ink-muted);
+}
+
+.VPDocAsideOutline .outline-link {
+  font-size: 13px;
+  color: var(--ace-ink-muted);
+  transition: color 0.2s ease;
+}
+
+.VPDocAsideOutline .outline-link:hover {
+  color: var(--ace-ink);
+}
+
+.VPDocAsideOutline .outline-link.active {
+  color: var(--ace-orange);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 12. Custom Containers (Tip, Warning, Danger)                               */
+/* -------------------------------------------------------------------------- */
+.custom-block {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 24px 0;
+}
+.custom-block .custom-block-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.custom-block.tip {
+  background: var(--ace-orange-soft);
+  border-color: var(--ace-orange);
+  color: var(--ace-ink);
+}
+.custom-block.tip .custom-block-title {
+  color: var(--ace-orange);
+}
+
+.custom-block.warning {
+  background: #fff8e6;
+  border-color: #f5c542;
+  color: #7a5d00;
+}
+.dark .custom-block.warning {
+  background: #3a2e00;
+  border-color: #f5c542;
+  color: #f5c542;
+}
+
+.custom-block.danger {
+  background: #ffebeb;
+  border-color: #f54242;
+  color: #7a0000;
+}
+.dark .custom-block.danger {
+  background: #3a0000;
+  border-color: #f54242;
+  color: #f54242;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 13. Search Box & Badges                                                    */
+/* -------------------------------------------------------------------------- */
+.VPNavBarSearch .DocSearch-Button {
+  background: var(--ace-milk-deep);
+  border: 1px solid var(--ace-line);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.VPNavBarSearch .DocSearch-Button:hover {
+  border-color: var(--ace-orange);
+  background: var(--ace-orange-soft);
+}
+.VPNavBarSearch .DocSearch-Button .DocSearch-Button-Placeholder {
+  color: var(--ace-ink-muted);
+}
+
+.VPBadge {
+  background: var(--ace-orange-soft);
+  color: var(--ace-orange);
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+.dark .VPBadge {
+  background: var(--ace-orange-soft);
+  color: var(--ace-orange);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 14. Footer & Prev/Next Links                                               */
+/* -------------------------------------------------------------------------- */
+.VPFooter {
+  border-top: 1px solid var(--ace-line);
+  background: var(--ace-milk);
+  padding: 32px 24px;
+  color: var(--ace-ink-muted);
+}
+
+.VPDocFooter {
+  margin-top: 64px;
+  border-top: 1px solid var(--ace-line);
+  padding-top: 32px;
+}
+
+.VPDocFooter .prev-next {
+  border: 1px solid var(--ace-line);
+  border-radius: 10px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  background: var(--ace-white);
+}
+
+.VPDocFooter .prev-next:hover {
+  border-color: var(--ace-orange);
+  background: var(--ace-orange-soft);
+}
+
+.VPDocFooter .prev-next .desc {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ace-ink-muted);
+}
+.VPDocFooter .prev-next .title {
+  color: var(--ace-orange);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 15. Mobile & Responsive Adjustments                                        */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .VPDoc h1 {
+    font-size: 3.4rem;
+  }
+
+  .VPDoc h2 {
+    margin-top: 48px;
+  }
+
+  .VPDoc {
+    padding-bottom: 80px;
+  }
+
+  .VPNavBarTitle .logo {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .VPHero .name {
+    font-size: 3rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 16. Accessibility & Reduced Motion                                         */
+/* -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Focus outlines for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--ace-orange);
+  outline-offset: 2px;
+}
