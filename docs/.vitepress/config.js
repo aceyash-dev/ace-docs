@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { SitemapStream, streamToPromise } from 'sitemap'
 
 export default defineConfig({
   title: 'ACE-DOCS',
@@ -25,30 +24,8 @@ export default defineConfig({
 
   cleanUrls: true,
 
-  async buildEnd(siteConfig) {
-    const hostname = 'https://docs.ace-base.cc'
-
-    const sitemap = new SitemapStream({
-      hostname
-    })
-
-    const urls = [
-      '/',
-      '/about',
-      '/projects',
-      '/projects/ace-id',
-      '/projects/typace'
-    ]
-
-    for (const url of urls) {
-      sitemap.write({ url })
-    }
-
-    sitemap.end()
-
-    const xml = await streamToPromise(sitemap)
-
-    await siteConfig.outDir.resolve('sitemap.xml').writeFile(xml)
+  sitemap: {
+    hostname: 'https://docs.ace-base.cc'
   },
 
   themeConfig: {
