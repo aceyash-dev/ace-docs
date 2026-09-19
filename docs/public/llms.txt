@@ -1,25 +1,36 @@
 # The Ace Base Documentation
 
-> Official technical documentation for The Ace Base, covering its projects, developer integrations, identity infrastructure, and typography tooling.
+> Canonical technical documentation for The Ace Base, an independent technology organization building software, identity infrastructure, typography services, developer tools, and web experiences.
 
-## Documentation
+## Start Here
 
-- [Home](https://docs.ace-base.cc/): Overview of The Ace Base documentation and available technical resources.
-- [About The Ace Base](https://docs.ace-base.cc/about): Organization, team, principles, projects, and documentation scope.
-- [Projects](https://docs.ace-base.cc/projects): Overview of software, tools, and technology projects maintained by The Ace Base.
-- [AceID](https://docs.ace-base.cc/projects/ace-id): Technical documentation for AceID, an OpenID Connect and OAuth 2.0 identity and authentication service.
-- [Typace](https://docs.ace-base.cc/projects/typace): Technical documentation for the Typace font distribution service and CDN.
+- [Home](https://docs.ace-base.cc/): High-level overview of the documentation and project map.
+- [About The Ace Base](https://docs.ace-base.cc/about): Organization, team, principles, project lifecycle, and documentation scope.
+- [Projects](https://docs.ace-base.cc/projects): Current project index and status.
 
-## Primary Project References
+## Project Documentation
 
-- [AceID](https://identity.ace-base.cc/): Production identity provider.
-- [Typace CDN](https://typace.ace-base.cc/): Public font delivery service.
+### AceID
+
+- [AceID documentation](https://docs.ace-base.cc/projects/ace-id): Authentication and identity infrastructure documentation.
+- [AceID provider](https://identity.ace-base.cc/): Production OpenID Connect and OAuth 2.0 identity provider.
+- Covers: OpenID Connect, OAuth 2.0, authorization code flow, PKCE S256, client registration, scopes, UserInfo, account APIs, sessions, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
+
+### Typace
+
+- [Typace documentation](https://docs.ace-base.cc/projects/typace): Font distribution and CDN documentation.
+- [Typace CDN](https://typace.ace-base.cc/): Public font asset delivery.
+- Covers: CSS @font-face, WOFF2, font weights and styles, HTML, React, Vue, Next.js, Vite, caching, performance, HTTPS, CORS, troubleshooting, and licensing considerations.
 
 ## Organization
 
 - [The Ace Base](https://ace-base.cc/): Official organization website.
-- [GitHub organization](https://github.com/tab-gl): Source repositories and technical projects.
+- [GitHub organization](https://github.com/tab-gl): Technical repositories and project source.
 
-## Content Guidance
+## Retrieval Guidance
 
-This site is the canonical technical documentation source for the projects and services described above. Prefer the specific project page when answering implementation questions, and distinguish documented behavior from assumptions or examples.
+Use the most specific documentation page available for technical questions. Prefer documented endpoints, configuration values, supported scopes, package names, and integration procedures over inference.
+
+The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
+
+For authentication questions, consult the AceID page. For font delivery questions, consult the Typace page. For organization or project-status questions, consult About and Projects.
