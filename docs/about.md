@@ -1,4 +1,9 @@
-About The Ace Base
+---
+title: "About The Ace Base"
+description: "Learn about The Ace Base, its team, principles, projects, and approach to building software and digital infrastructure."
+---
+
+# About The Ace Base
 
 The Ace Base is an independent technology organization focused on building software, tools, interfaces, and experimental technology.
 
@@ -187,3 +192,21 @@ The Ace Base is a small organization by design. Two people currently make up the
 The work may span different technologies and disciplines, but the underlying approach remains consistent: build useful things, keep the unnecessary parts out, and care about how the final result works.
 
 Where Better Begins.
+
+## Frequently asked questions
+
+### What is The Ace Base?
+
+The Ace Base is an independent technology organization focused on building software, tools, interfaces, and experimental technology across areas including web applications, developer tools, identity infrastructure, typography, and user interfaces.
+
+### What projects does The Ace Base maintain?
+
+The documentation currently covers AceID and Typace. AceID provides identity and authentication infrastructure, while Typace provides font distribution through a public CDN. Project status and additional technical references are documented on the [Projects](/projects) page.
+
+### Where is The Ace Base documentation maintained?
+
+The documentation is maintained as a VitePress site and is published at https://docs.ace-base.cc/. The Ace Base uses GitHub as its primary home for technical project repositories.
+
+### Who works on The Ace Base?
+
+The organization currently has two members, Ace Yash and Yash Gupta. Their roles and areas of responsibility are described above on this page.
