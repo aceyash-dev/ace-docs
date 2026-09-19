@@ -29,6 +29,8 @@ export default defineConfig({
   },
 
   transformHead({ page, pageData, title, description }) {
+    if (page === '404.md') return []
+
     const path = page.replace(/\\.md$/, '').replace(/\\/index$/, '/')
     const canonical = `https://docs.ace-base.cc/${path === 'index' ? '' : path.replace(/^\\//, '')}`
     const modified = pageData.lastUpdated
@@ -108,6 +110,47 @@ export default defineConfig({
             .replace(/\\b\\w/g, char => char.toUpperCase()),
           item: url
         })
+      })
+    }
+
+    if (page === 'about.md') {
+      graph.push({
+        '@type': 'FAQPage',
+        '@id': `${canonical}#faq`,
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is The Ace Base?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The Ace Base is an independent technology organization focused on building software, tools, interfaces, and experimental technology.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What projects does The Ace Base maintain?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The documentation currently covers AceID, an identity and authentication service, and Typace, a font distribution service.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Where is The Ace Base documentation maintained?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The Ace Base documentation is maintained as a VitePress site and published at https://docs.ace-base.cc/.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Who works on The Ace Base?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The organization currently has two members, Ace Yash and Yash Gupta.'
+            }
+          }
+        ]
       })
     }
 
