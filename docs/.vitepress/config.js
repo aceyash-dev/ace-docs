@@ -31,7 +31,7 @@ export default defineConfig({
   transformHead({ page, pageData, title, description }) {
     if (page === '404.md') return []
 
-    const path = page.replace(/\\.md$/, '').replace(/\\/index$/, '/')
+    const path = page.replace(/\.md$/, '').replace(/\/index$/, '/')
     const canonical = `https://docs.ace-base.cc/${path === 'index' ? '' : path.replace(/^\\//, '')}`
     const modified = pageData.lastUpdated
       ? new Date(pageData.lastUpdated).toISOString()
@@ -68,6 +68,33 @@ export default defineConfig({
         ...(modified ? { dateModified: modified } : {})
       }
     ]
+
+    const projectSchemas = {
+      'projects/ace-id.md': {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://docs.ace-base.cc/projects/ace-id#software',
+        name: 'AceID',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'Identity and authentication',
+        operatingSystem: 'Any',
+        url: 'https://identity.ace-base.cc/',
+        documentation: canonical,
+        provider: { '@id': 'https://docs.ace-base.cc/#organization' }
+      },
+      'projects/typace.md': {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://docs.ace-base.cc/projects/typace#software',
+        name: 'Typace',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'Font distribution service',
+        operatingSystem: 'Any',
+        url: 'https://typace.ace-base.cc/',
+        documentation: canonical,
+        provider: { '@id': 'https://docs.ace-base.cc/#organization' }
+      }
+    }
+
+    if (projectSchemas[page]) graph.push(projectSchemas[page])
 
     if (page !== 'index.md' && page !== '404.md') {
       graph.push({
@@ -107,7 +134,7 @@ export default defineConfig({
           position: index + 2,
           name: segment
             .replace(/-/g, ' ')
-            .replace(/\\b\\w/g, char => char.toUpperCase()),
+            .replace(/\b\w/g, char => char.toUpperCase()),
           item: url
         })
       })
@@ -168,6 +195,7 @@ export default defineConfig({
       ['meta', { property: 'og:type', content: 'website' }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
+      ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }],
       ['script', { type: 'application/ld+json' }, JSON.stringify({
         '@context': 'https://schema.org',
         '@graph': graph
