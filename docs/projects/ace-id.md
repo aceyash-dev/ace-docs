@@ -868,3 +868,17 @@ The private source repository is not required to integrate AceID.
 Applications use `ace-id-sdk` or the supported OpenID Connect interfaces exposed by `https://identity.ace-base.cc`.
 
 No source checkout or self-hosted AceID instance is required for normal application integration.
+
+## Frequently asked questions
+
+### How does AceID authentication work?
+
+AceID provides OpenID Connect and OAuth 2.0 authorization flows. Applications authenticate through the AceID provider, receive an authorization response, and establish their own application session.
+
+### Should public browser clients use PKCE?
+
+Yes. Public browser clients should use PKCE with the S256 code challenge method rather than relying on a client secret.
+
+### What SDK package is used for AceID?
+
+The application-facing JavaScript and Node.js package is `ace-id-sdk`, installed with `npm install ace-id-sdk`.
