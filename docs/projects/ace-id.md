@@ -1,3 +1,8 @@
+---
+title: "AceID"
+description: "Technical documentation for AceID, an OpenID Connect and OAuth 2.0 identity and authentication service by The Ace Base."
+---
+
 # AceID
 
 AceID provides authentication and identity infrastructure for applications built by or with The Ace Base.
