@@ -1,3 +1,8 @@
+---
+title: "Projects"
+description: "Software, tools, and technology projects built and maintained by The Ace Base, including AceID and Typace."
+---
+
 # Projects
 
 Software, tools, and technology projects built and maintained by The Ace Base.
