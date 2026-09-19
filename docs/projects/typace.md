@@ -1,3 +1,8 @@
+---
+title: "Typace"
+description: "Technical documentation for Typace, a font distribution service and CDN for websites and applications."
+---
+
 # Typace
 
 Typace is a font distribution service from The Ace Base.
