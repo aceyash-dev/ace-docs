@@ -181,6 +181,31 @@ export default defineConfig({
       })
     }
 
+    const projectFaqs = {
+      'projects/ace-id.md': [
+        ['How does AceID authentication work?', 'AceID provides OpenID Connect and OAuth 2.0 authorization flows. Applications authenticate through the AceID provider, receive an authorization response, and establish their own application session.'],
+        ['Should public browser clients use PKCE?', 'Yes. Public browser clients should use PKCE with the S256 code challenge method rather than relying on a client secret.'],
+        ['What SDK package is used for AceID?', 'The application-facing JavaScript and Node.js package is ace-id-sdk, installed with npm install ace-id-sdk.']
+      ],
+      'projects/typace.md': [
+        ['Do I need an npm package to use Typace?', 'No. Typace CDN assets can be consumed with standard CSS @font-face declarations and do not require a Typace npm package.'],
+        ['Which font format should I use with Typace?', 'For normal modern web applications, WOFF2 is generally the preferred font format when the font is available in that format.'],
+        ['How do I use a Typace font in CSS?', 'Use a CSS @font-face declaration whose src points to the appropriate HTTPS asset on typace.ace-base.cc, then reference the declared family in your stylesheet.']
+      ]
+    }
+
+    if (projectFaqs[page]) {
+      graph.push({
+        '@type': 'FAQPage',
+        '@id': `${canonical}#faq`,
+        mainEntity: projectFaqs[page].map(([name, text]) => ({
+          '@type': 'Question',
+          name,
+          acceptedAnswer: { '@type': 'Answer', text }
+        }))
+      })
+    }
+
     graph.push({
       '@type': 'BreadcrumbList',
       '@id': `${canonical}#breadcrumb`,
