@@ -13,7 +13,7 @@ AceID is an integration service. You do not clone or self-host AceID. You integr
 For JavaScript and Node.js applications, install the AceID SDK:
 
 ```bash
-npm install @ace-base/aid-sdk
+npm install aid-sdk
 ```
 
 The SDK is the application-facing integration package.
@@ -102,14 +102,14 @@ The standard OIDC scopes provide the following identity information:
 Install AceID's SDK using npm:
 
 ```bash
-npm install @ace-base/aid-sdk
+npm install aid-sdk
 ```
 
 ### 2. Configure the Application
 
 Create the AceID application configuration in your environment.
 
-The exact SDK initialization interface should follow the version of `@ace-base/aid-sdk` installed in your application.
+The exact SDK initialization interface should follow the version of `aid-sdk` installed in your application.
 
 Keep credentials outside source code. A typical environment contains the issuer and application-specific configuration:
 
@@ -833,11 +833,11 @@ The application-facing account and authentication routes are implemented by the 
 
 ## AceID SDK
 
-**Package:** `@ace-base/aid-sdk`
+**Package:** `aid-sdk`
 
 **Install:**
 ```bash
-npm install @ace-base/aid-sdk
+npm install aid-sdk
 ```
 
 **Use the SDK for:**
@@ -860,6 +860,6 @@ aceyash-dev/ace-id
 
 The private source repository is not required to integrate AceID.
 
-Applications use `@ace-base/aid-sdk` or the supported OpenID Connect interfaces exposed by `https://identity.ace-base.cc`.
+Applications use `aid-sdk` or the supported OpenID Connect interfaces exposed by `https://identity.ace-base.cc`.
 
 No source checkout or self-hosted AceID instance is required for normal application integration.
