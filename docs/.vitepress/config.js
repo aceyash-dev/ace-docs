@@ -28,6 +28,110 @@ export default defineConfig({
     hostname: 'https://docs.ace-base.cc'
   },
 
+  transformHead({ page, pageData, title, description }) {
+    const path = page.replace(/\\.md$/, '').replace(/\\/index$/, '/')
+    const canonical = `https://docs.ace-base.cc/${path === 'index' ? '' : path.replace(/^\\//, '')}`
+    const modified = pageData.lastUpdated
+      ? new Date(pageData.lastUpdated).toISOString()
+      : undefined
+
+    const organization = {
+      '@type': 'Organization',
+      '@id': 'https://docs.ace-base.cc/#organization',
+      name: 'The Ace Base',
+      url: 'https://ace-base.cc/',
+      logo: 'https://docs.ace-base.cc/icon.png',
+      sameAs: ['https://github.com/tab-gl']
+    }
+
+    const graph = [
+      organization,
+      {
+        '@type': 'WebSite',
+        '@id': 'https://docs.ace-base.cc/#website',
+        name: 'The Ace Base Documentation',
+        url: 'https://docs.ace-base.cc/',
+        publisher: { '@id': 'https://docs.ace-base.cc/#organization' },
+        inLanguage: 'en'
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${canonical}#webpage`,
+        url: canonical,
+        name: title,
+        description,
+        isPartOf: { '@id': 'https://docs.ace-base.cc/#website' },
+        publisher: { '@id': 'https://docs.ace-base.cc/#organization' },
+        inLanguage: 'en',
+        ...(modified ? { dateModified: modified } : {})
+      }
+    ]
+
+    if (page !== 'index.md' && page !== '404.md') {
+      graph.push({
+        '@type': 'TechArticle',
+        '@id': `${canonical}#article`,
+        headline: title,
+        description,
+        url: canonical,
+        author: {
+          '@type': 'Person',
+          name: 'Ace Yash',
+          url: 'https://github.com/aceyash-dev'
+        },
+        publisher: { '@id': 'https://docs.ace-base.cc/#organization' },
+        mainEntityOfPage: { '@id': `${canonical}#webpage` },
+        inLanguage: 'en',
+        ...(modified ? { dateModified: modified, datePublished: modified } : {})
+      })
+    }
+
+    const segments = canonical.replace('https://docs.ace-base.cc/', '').split('/').filter(Boolean)
+    const breadcrumbItems = [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://docs.ace-base.cc/'
+      }
+    ]
+
+    if (segments.length) {
+      let url = 'https://docs.ace-base.cc'
+      segments.forEach((segment, index) => {
+        url += `/${segment}`
+        breadcrumbItems.push({
+          '@type': 'ListItem',
+          position: index + 2,
+          name: segment
+            .replace(/-/g, ' ')
+            .replace(/\\b\\w/g, char => char.toUpperCase()),
+          item: url
+        })
+      })
+    }
+
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: breadcrumbItems
+    })
+
+    return [
+      ['link', { rel: 'canonical', href: canonical }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: canonical }],
+      ['meta', { property: 'og:type', content: 'website' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+      ['script', { type: 'application/ld+json' }, JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': graph
+      })]
+    ]
+  },
+
   themeConfig: {
     logo: '/icon.png',
 
