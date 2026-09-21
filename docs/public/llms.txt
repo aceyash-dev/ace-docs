@@ -19,6 +19,7 @@
 ### Typace
 
 - [Typace documentation](https://docs.ace-base.cc/projects/typace): Font distribution, CDN, dynamic catalog, and API documentation.
+- [Typace API Reference](https://docs.ace-base.cc/projects/typace-api): Dedicated endpoint reference with request examples and integration guidance.
 - [Typace CDN](https://typace.ace-base.cc/): Public font asset delivery.
 - [Typace LLM documentation](https://typace.ace-base.cc/llms.txt): Machine-readable service and API reference.
 - [Typace OpenAPI](https://typace.ace-base.cc/api/openapi.json): Machine-readable API specification.
@@ -49,4 +50,4 @@ For questions about the currently available Typace fonts, use the live catalog a
 
 The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
 
-For authentication questions, consult the AceID page. For font delivery and Typace API questions, consult the Typace page and live Typace API. For organization or project-status questions, consult About and Projects.
+For authentication questions, consult the AceID page. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
