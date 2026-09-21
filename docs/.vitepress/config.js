@@ -1,55 +1,180 @@
 import { defineConfig } from 'vitepress'
 
+const SITE = 'https://docs.ace-base.cc'
+const ORG = 'https://ace-base.cc/'
+const GITHUB = 'https://github.com/tab-gl'
+
 export default defineConfig({
   title: 'ACE-DOCS',
-  description: 'Software, technology, and digital infrastructure by The Ace Base.',
+  description: 'Technical documentation for The Ace Base, including AceID and Typace.',
+  lang: 'en-US',
+  cleanUrls: true,
+
+  sitemap: {
+    hostname: SITE
+  },
 
   head: [
-    ["link", { rel: "icon", href: "/icon.png" }],
-    ["meta", { property: "og:image", content: "https://docs.ace-base.cc/icon.png" }],
-    ["meta", { name: "twitter:card", content: "summary" }],
-    ["meta", { name: "twitter:image", content: "https://docs.ace-base.cc/icon.png" }],
     ['link', { rel: 'icon', href: '/icon.png' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    ['link', { href: 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap', rel: 'stylesheet' }],
-    ['link', { href: 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap', rel: 'stylesheet' }]
+    ['link', { rel: 'canonical', href: SITE + '/' }],
+    ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }],
+    ['meta', { property: 'og:site_name', content: 'The Ace Base Documentation' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:image', content: SITE + '/icon.png' }],
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:image', content: SITE + '/icon.png' }]
   ],
-  cleanUrls: true,
-  sitemap: { hostname: 'https://docs.ace-base.cc' },
-  transformHead({ page, pageData, title, description }) {
+
+  transformHead({ page, title, description }) {
     if (page === '404.md') return []
-    const path = page.replace(/\.md$/, '').replace(/\/index$/, '/')
-    const canonical = `https://docs.ace-base.cc/${path === 'index' ? '' : path.replace(/^\\//, '')}`
-    const modified = pageData.lastUpdated ? new Date(pageData.lastUpdated).toISOString() : undefined
-    const organization = { '@type': 'Organization', '@id': 'https://docs.ace-base.cc/#organization', name: 'The Ace Base', url: 'https://ace-base.cc/', logo: 'https://docs.ace-base.cc/icon.png', sameAs: ['https://github.com/tab-gl'] }
-    const graph = [organization,
-      { '@type': 'WebSite', '@id': 'https://docs.ace-base.cc/#website', name: 'The Ace Base Documentation', url: 'https://docs.ace-base.cc/', publisher: { '@id': 'https://docs.ace-base.cc/#organization' }, inLanguage: 'en' },
-      { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { '@id': 'https://docs.ace-base.cc/#website' }, publisher: { '@id': 'https://docs.ace-base.cc/#organization' }, inLanguage: 'en', ...(modified ? { dateModified: modified } : {}) }
+
+    const cleanPage = page.replace(/\.md$/, '').replace(/\/index$/, '')
+    const canonical = cleanPage ? `${SITE}/${cleanPage}` : `${SITE}/`
+    const project =
+      page === 'projects/ace-id.md'
+        ? 'AceID'
+        : page === 'projects/typace.md' || page === 'projects/typace-api.md'
+          ? 'Typace'
+          : null
+
+    const graph = [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE}/#organization`,
+        name: 'The Ace Base',
+        url: ORG,
+        logo: `${SITE}/icon.png`,
+        sameAs: [GITHUB]
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
+        name: 'The Ace Base Documentation',
+        url: SITE + '/',
+        publisher: { '@id': `${SITE}/#organization` },
+        inLanguage: 'en-US'
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${canonical}#webpage`,
+        url: canonical,
+        name: title,
+        description,
+        isPartOf: { '@id': `${SITE}/#website` },
+        publisher: { '@id': `${SITE}/#organization` },
+        inLanguage: 'en-US'
+      }
     ]
-    const projectSchemas = {
-      'projects/ace-id.md': { '@type': 'SoftwareApplication', '@id': 'https://docs.ace-base.cc/projects/ace-id#software', name: 'AceID', applicationCategory: 'DeveloperApplication', applicationSubCategory: 'Identity and authentication', operatingSystem: 'Any', url: 'https://identity.ace-base.cc/', documentation: canonical, provider: { '@id': 'https://docs.ace-base.cc/#organization' } },
-      'projects/typace.md': { '@type': 'SoftwareApplication', '@id': 'https://docs.ace-base.cc/projects/typace#software', name: 'Typace', applicationCategory: 'DeveloperApplication', applicationSubCategory: 'Font distribution service', operatingSystem: 'Any', url: 'https://typace.ace-base.cc/', documentation: canonical, provider: { '@id': 'https://docs.ace-base.cc/#organization' } },
-      'projects/typace-api.md': { '@type': 'TechArticle', '@id': 'https://docs.ace-base.cc/projects/typace-api#article', headline: 'Typace API Reference', description: 'Machine-readable API reference for the dynamic Typace font catalog, search, font metadata, generated CSS, and OpenAPI specification.', url: canonical, about: { '@type': 'SoftwareApplication', name: 'Typace', url: 'https://typace.ace-base.cc/' }, provider: { '@id': 'https://docs.ace-base.cc/#organization' } }
+
+    if (project) {
+      graph.push({
+        '@type': 'SoftwareApplication',
+        '@id': `${canonical}#software`,
+        name: project,
+        applicationCategory: 'DeveloperApplication',
+        url: project === 'Typace' ? 'https://typace.ace-base.cc/' : 'https://identity.ace-base.cc/',
+        documentation: canonical,
+        provider: { '@id': `${SITE}/#organization` }
+      })
     }
-    if (projectSchemas[page]) graph.push(projectSchemas[page])
-    if (page !== 'index.md' && page !== '404.md' && page !== 'projects/typace-api.md') graph.push({ '@type': 'TechArticle', '@id': `${canonical}#article`, headline: title, description, url: canonical, author: { '@type': 'Person', name: 'Ace Yash', url: 'https://github.com/aceyash-dev' }, publisher: { '@id': 'https://docs.ace-base.cc/#organization' }, mainEntityOfPage: { '@id': `${canonical}#webpage` }, inLanguage: 'en', ...(modified ? { dateModified: modified, datePublished: modified } : {}) })
-    const segments = canonical.replace('https://docs.ace-base.cc/', '').split('/').filter(Boolean)
-    const breadcrumbItems = [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://docs.ace-base.cc/' }]
-    if (segments.length) { let url = 'https://docs.ace-base.cc'; segments.forEach((segment, index) => { url += `/${segment}`; breadcrumbItems.push({ '@type': 'ListItem', position: index + 2, name: segment.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase()), item: url }) }) }
-    if (page === 'about.md') graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: [['What is The Ace Base?', 'The Ace Base is an independent technology organization focused on building software, tools, interfaces, and experimental technology.'], ['What projects does The Ace Base maintain?', 'The documentation currently covers AceID, an identity and authentication service, and Typace, a font distribution service.'], ['Where is The Ace Base documentation maintained?', 'The Ace Base documentation is maintained as a VitePress site and published at https://docs.ace-base.cc/.'], ['Who works on The Ace Base?', 'The organization currently has two members, Ace Yash and Yash Gupta.']].map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) })
-    const projectFaqs = {
-      'projects/ace-id.md': [['How does AceID authentication work?', 'AceID provides OpenID Connect and OAuth 2.0 authorization flows. Applications authenticate through the AceID provider, receive an authorization response, and establish their own application session.'], ['Should public browser clients use PKCE?', 'Yes. Public browser clients should use PKCE with the S256 code challenge method rather than relying on a client secret.'], ['What SDK package is used for AceID?', 'The application-facing JavaScript and Node.js package is ace-id-sdk, installed with npm install ace-id-sdk.']],
-      'projects/typace.md': [['Do I need an npm package to use Typace?', 'No. Typace CDN assets can be consumed with standard CSS @font-face declarations and do not require a Typace npm package.'], ['Which font format should I use with Typace?', 'For normal modern web applications, WOFF2 is generally the preferred font format when the font is available in that format.'], ['How do I use a Typace font in CSS?', 'Use a CSS @font-face declaration whose src points to the appropriate HTTPS asset on typace.ace-base.cc, then reference the declared family in your stylesheet.']]
+
+    if (page !== 'index.md') {
+      graph.push({
+        '@type': 'TechArticle',
+        '@id': `${canonical}#article`,
+        headline: title,
+        description,
+        url: canonical,
+        author: {
+          '@type': 'Person',
+          name: 'Ace Yash',
+          url: 'https://github.com/aceyash-dev'
+        },
+        publisher: { '@id': `${SITE}/#organization` },
+        mainEntityOfPage: { '@id': `${canonical}#webpage` },
+        inLanguage: 'en-US'
+      })
     }
-    if (projectFaqs[page]) graph.push({ '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: projectFaqs[page].map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) })
-    graph.push({ '@type': 'BreadcrumbList', '@id': `${canonical}#breadcrumb`, itemListElement: breadcrumbItems })
-    return [['link', { rel: 'canonical', href: canonical }], ['meta', { property: 'og:title', content: title }], ['meta', { property: 'og:description', content: description }], ['meta', { property: 'og:url', content: canonical }], ['meta', { property: 'og:type', content: 'website' }], ['meta', { name: 'twitter:title', content: title }], ['meta', { name: 'twitter:description', content: description }], ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }], ['script', { type: 'application/ld+json' }, JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })]]
+
+    const breadcrumbs = [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' }]
+    if (cleanPage) {
+      cleanPage.split('/').forEach((part, index) => {
+        breadcrumbs.push({
+          '@type': 'ListItem',
+          position: index + 2,
+          name: part.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+          item: `${SITE}/${cleanPage.split('/').slice(0, index + 1).join('/')}`
+        })
+      })
+    }
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: breadcrumbs
+    })
+
+    return [
+      ['link', { rel: 'canonical', href: canonical }],
+      ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: canonical }],
+      ['meta', { property: 'og:type', content: 'article' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+      ['script', { type: 'application/ld+json' }, JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': graph
+      })]
+    ]
   },
+
   themeConfig: {
     logo: '/icon.png',
-    nav: [{ text: 'Home', link: '/' }, { text: 'About', link: '/about' }, { text: 'Projects', link: '/projects' }],
-    sidebar: [{ text: 'Introduction', items: [{ text: 'About The Ace Base', link: '/about' }, { text: 'Projects Overview', link: '/projects' }] }, { text: 'Projects', items: [{ text: 'AceID', link: '/projects/ace-id' }, { text: 'Typace', link: '/projects/typace' }, { text: 'Typace API Reference', link: '/projects/typace-api' }] }],
-    search: { provider: 'local' }, outline: { level: [2, 3], label: 'On this page' }, lastUpdated: { text: 'Last updated', formatOptions: { dateStyle: 'medium', timeStyle: 'short' } }, socialLinks: [{ icon: 'github', link: 'https://github.com/tab-gl' }], footer: { message: 'Released under the appropriate distribution model.', copyright: 'Copyright © 2025-present The Ace Base' }
+
+    nav: [
+      { text: 'Home', link: '/' },
+      { text: 'About', link: '/about' },
+      { text: 'Projects', link: '/projects' }
+    ],
+
+    sidebar: [
+      {
+        text: 'Introduction',
+        items: [
+          { text: 'About The Ace Base', link: '/about' },
+          { text: 'Projects Overview', link: '/projects' }
+        ]
+      },
+      {
+        text: 'Projects',
+        items: [
+          { text: 'AceID', link: '/projects/ace-id' },
+          { text: 'Typace', link: '/projects/typace' },
+          { text: 'Typace API Reference', link: '/projects/typace-api' }
+        ]
+      }
+    ],
+
+    search: { provider: 'local' },
+
+    outline: { level: [2, 3], label: 'On this page' },
+
+    lastUpdated: {
+      text: 'Last updated',
+      formatOptions: {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }
+    },
+
+    socialLinks: [
+      { icon: 'github', link: GITHUB }
+    ],
+
+    footer: {
+      message: 'Technical documentation by The Ace Base.',
+      copyright: 'Copyright © 2025-present The Ace Base'
+    }
   }
 })
