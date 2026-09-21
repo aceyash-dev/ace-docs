@@ -18,9 +18,23 @@
 
 ### Typace
 
-- [Typace documentation](https://docs.ace-base.cc/projects/typace): Font distribution and CDN documentation.
+- [Typace documentation](https://docs.ace-base.cc/projects/typace): Font distribution, CDN, dynamic catalog, and API documentation.
 - [Typace CDN](https://typace.ace-base.cc/): Public font asset delivery.
-- Covers: CSS @font-face, WOFF2, font weights and styles, HTML, React, Vue, Next.js, Vite, caching, performance, HTTPS, CORS, troubleshooting, and licensing considerations.
+- [Typace LLM documentation](https://typace.ace-base.cc/llms.txt): Machine-readable service and API reference.
+- [Typace OpenAPI](https://typace.ace-base.cc/api/openapi.json): Machine-readable API specification.
+- [Typace font catalog](https://typace.ace-base.cc/api/fonts): Live JSON catalog of published fonts.
+- [Typace search](https://typace.ace-base.cc/api/search?q=Spectral): Search the live catalog by query.
+- Covers: CSS @font-face, WOFF2, WOFF, OTF, TTF, font weights and styles, HTML, React, Vue, Next.js, Vite, dynamic catalog discovery, font metadata, generated CSS, caching, performance, HTTPS, CORS, troubleshooting, and licensing considerations.
+
+### Typace API endpoints
+
+- `GET /api/fonts`: Current dynamic font catalog.
+- `GET /api/search?q=...`: Search the current font catalog.
+- `GET /api/fonts/:slug`: Metadata for one font.
+- `GET /api/css/:slug`: Generated CSS @font-face declaration.
+- `GET /api/openapi.json`: OpenAPI 3 specification.
+
+The Typace API and dynamic font pages are generated from the published font catalog. Prefer the live API over hardcoded inventories.
 
 ## Organization
 
@@ -29,8 +43,10 @@
 
 ## Retrieval Guidance
 
-Use the most specific documentation page available for technical questions. Prefer documented endpoints, configuration values, supported scopes, package names, and integration procedures over inference.
+Use the most specific documentation page available for technical questions. Prefer documented endpoints, configuration values, supported formats, package names, and integration procedures over inference.
+
+For questions about the currently available Typace fonts, use the live catalog at `https://typace.ace-base.cc/api/fonts`. Do not infer that a font exists from examples in documentation.
 
 The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
 
-For authentication questions, consult the AceID page. For font delivery questions, consult the Typace page. For organization or project-status questions, consult About and Projects.
+For authentication questions, consult the AceID page. For font delivery and Typace API questions, consult the Typace page and live Typace API. For organization or project-status questions, consult About and Projects.
