@@ -284,6 +284,97 @@ body {
 
 No Typace npm package is required for CDN usage.
 
+
+## API Reference
+
+Typace exposes a dynamic JSON API for discovering the current font catalog and generating integration data. The API reads the published font files from the Typace deployment rather than relying on a manually maintained font list.
+
+### List fonts
+
+```http
+GET https://typace.ace-base.cc/api/fonts
+```
+
+Returns the current catalog. Each record can include:
+
+- `name`: font name
+- `file`: published filename
+- `type`: file type
+- `format`: browser/CSS format
+- `url`: public font asset path
+- `createdAt`: source/repository creation timestamp when available
+- `updatedAt`: source/repository update timestamp when available
+- `isNew`: optional new-font marker
+
+The catalog currently supports:
+
+- `.woff2`
+- `.woff`
+- `.otf`
+- `.ttf`
+
+Treat the API response as the source of truth. Do not hardcode a font inventory in applications or documentation.
+
+### Search fonts
+
+```http
+GET https://typace.ace-base.cc/api/search?q=Spectral
+```
+
+The search endpoint accepts a `q` query parameter and searches the dynamic catalog.
+
+### Get one font
+
+```http
+GET https://typace.ace-base.cc/api/fonts/Spectral
+```
+
+The font name or filename can be used to resolve a single catalog record.
+
+### Generate CSS
+
+```http
+GET https://typace.ace-base.cc/api/css/Spectral
+```
+
+Returns a generated CSS `@font-face` declaration for the resolved font.
+
+### OpenAPI
+
+Machine-readable API documentation is available at:
+
+```text
+https://typace.ace-base.cc/api/openapi.json
+```
+
+### Machine-readable documentation
+
+The Typace service also publishes an LLM-oriented documentation file:
+
+```text
+https://typace.ace-base.cc/llms.txt
+```
+
+Use it together with the API when answering questions about the live Typace catalog. The API is authoritative for currently available font records.
+
+## Dynamic Font Pages
+
+Each discovered font has a crawlable documentation/resource page:
+
+```text
+https://typace.ace-base.cc/fonts/{font-name}
+```
+
+These pages expose the font name, file, format, download URL, generated CSS endpoint, and machine-readable metadata.
+
+For example:
+
+```text
+https://typace.ace-base.cc/fonts/Spectral
+```
+
+The font pages are generated from the same dynamic catalog used by the API, so new published fonts do not require a manual documentation edit.
+
 ## Choosing a Font Format
 
 When multiple formats are available, prefer WOFF2 for modern web applications.
