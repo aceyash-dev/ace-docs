@@ -11,7 +11,7 @@ We create and maintain projects across software development, identity, typograph
 
 Where Better Begins.
 
-The Organization
+## The Organization
 
 The Ace Base is intentionally small. The organization currently has two members, working closely across product, technology, design, communication, and development.
 
@@ -19,9 +19,9 @@ Keeping the team small allows decisions to stay close to the people building the
 
 The Ace Base operates primarily through its GitHub organization, where its projects, source code, and technical work are organized.
 
-The Team
+## The Team
 
-Ace Yash
+### Ace Yash
 
 CEO · @aceyash-dev
 
@@ -29,7 +29,7 @@ Ace Yash is the CEO of The Ace Base and leads the organization, including its ov
 
 His work covers product ideas, software development, technical decisions, and the broader direction of projects under The Ace Base.
 
-Yash Gupta
+### Yash Gupta
 
 CCO & Tech · @acetheticsx
 
@@ -37,109 +37,109 @@ Yash Gupta is the CCO and contributes to the technical work at The Ace Base.
 
 His role spans communications and technology, working alongside the organization on its products, projects, and technical development.
 
-How We Work
+## How We Work
 
 The Ace Base is built around a direct and practical approach to making software.
 
-Build with purpose
+### Build with purpose
 
 Projects begin with an idea, a problem, or something worth exploring. Development is centered around making that idea useful rather than adding features simply because they can be built.
 
-Keep things simple
+### Keep things simple
 
 Complexity is introduced when it has a purpose. We prefer systems and interfaces that are understandable, maintainable, and straightforward to work with.
 
-Design matters
+### Design matters
 
 Software is more than its underlying implementation. Interfaces, typography, interaction, spacing, performance, and small details all contribute to the final product.
 
-Work closely
+### Work closely
 
 With a small team, development and decision-making happen closely between members. Technical and product considerations can be discussed together rather than being separated into isolated processes.
 
-Iterate through real work
+### Iterate through real work
 
 Ideas become clearer through implementation. Projects can change as they develop, and parts that do not serve their purpose can be refined or removed.
 
-Take the details seriously
+### Take the details seriously
 
 Small decisions often have a large effect on how software feels and performs. We pay attention to the details without losing sight of the larger purpose of a project.
 
-What We Build
+## What We Build
 
 The Ace Base works across several areas of technology.
 
-Web Applications
+### Web Applications
 
 Web-based products and experiences designed to be useful, accessible, and responsive.
 
-Developer Tools
+### Developer Tools
 
 Tools and utilities intended to make development workflows simpler or more capable.
 
-Identity Infrastructure
+### Identity Infrastructure
 
 Authentication and identity-related systems designed to provide a foundation for applications and services.
 
-Typography
+### Typography
 
 Projects involving fonts, typefaces, typography tools, and the systems used to work with them.
 
-User Interfaces
+### User Interfaces
 
 Interfaces where visual design, interaction, usability, and implementation come together.
 
-Experimental Software
+### Experimental Software
 
 Ideas that are being explored without necessarily fitting into a conventional product category.
 
-Principles
+## Principles
 
-Craft
+### Craft
 
 Software should be thoughtfully designed, not merely functional.
 
 Good implementation matters, but so do the details around it. We aim to create work that feels deliberate rather than assembled without consideration.
 
-Simplicity
+### Simplicity
 
 Complexity should exist because it solves a real problem.
 
 We prefer clear systems, understandable interfaces, and solutions that do not require unnecessary machinery.
 
-Performance
+### Performance
 
 Fast and efficient software should be the default.
 
 Performance is part of the experience. Applications should make sensible use of resources and avoid unnecessary work wherever practical.
 
-Accessibility
+### Accessibility
 
 Interfaces should be usable by as many people as reasonably possible.
 
 Accessibility is considered as part of the design and development process rather than treated as a separate feature.
 
-Privacy
+### Privacy
 
 Personal data should be treated as something entrusted to software.
 
 Systems that handle personal information should be designed with appropriate care around how that information is collected, processed, stored, and exposed.
 
-Projects
+## Projects
 
 Projects under The Ace Base can exist at different stages of development.
 
-Status	Meaning
-
-Active	Currently maintained and developed
-Experimental	Being explored or actively tested
-Archived	Preserved but no longer actively developed
-Discontinued	Development has ended
+| Status | Meaning |
+| --- | --- |
+| Active | Currently maintained and developed |
+| Experimental | Being explored or actively tested |
+| Archived | Preserved but no longer actively developed |
+| Discontinued | Development has ended |
 
 
 A project's status describes its current state and may change as the work evolves.
 
-Documentation
+## Documentation
 
 This documentation is the central reference for The Ace Base and its projects.
 
@@ -166,7 +166,7 @@ Technical references
 
 Each project is documented according to what it actually provides. The documentation is intended to be useful both for understanding a project and for working with it.
 
-GitHub
+## GitHub
 
 The Ace Base uses GitHub as its primary home for its technical work and project repositories.
 
@@ -179,7 +179,7 @@ Ace Yash: @aceyash-dev
 Yash Gupta: @acetheticsx
 
 
-Social
+## Social
 
 For updates and announcements:
 
