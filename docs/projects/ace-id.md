@@ -114,7 +114,7 @@ npm install ace-id-sdk
 
 Create the AceID application configuration in your environment.
 
-The exact SDK initialization interface should follow the version of `ace-id-sdk` installed in your application.
+The SDK uses the current Authorization Code + PKCE (S256) flow. Configure the installed SDK client with the Ace ID issuer and the exact application `redirectUri`.
 
 Keep credentials outside source code. A typical environment contains the issuer and application-specific configuration:
 
@@ -868,6 +868,132 @@ The private source repository is not required to integrate AceID.
 Applications use `ace-id-sdk` or the supported OpenID Connect interfaces exposed by `https://identity.ace-base.cc`.
 
 No source checkout or self-hosted AceID instance is required for normal application integration.
+
+## Latest SDK authentication flow
+
+The current application-facing SDK flow uses **Authorization Code + PKCE (S256)**. The SDK handles the browser redirect, state/nonce generation, PKCE verifier/challenge generation, callback validation, token exchange, and token refresh.
+
+### Install
+
+Use the current package:
+
+```bash
+npm install ace-id-sdk
+```
+
+### Provider configuration
+
+Use the production Ace ID issuer:
+
+```text
+https://identity.ace-base.cc
+```
+
+Your application registration in AIDC should contain the exact callback URL used by the SDK:
+
+```text
+https://example.com/auth/callback
+```
+
+For local development:
+
+```text
+http://localhost:3000/auth/callback
+```
+
+Do not put a confidential client secret in browser code. Browser applications are public clients and should use PKCE.
+
+### Flow
+
+The SDK performs this sequence:
+
+```text
+Your app
+   │
+   │ signIn({ returnTo? })
+   ▼
+Ace ID authorization endpoint
+   │
+   │ login + consent
+   ▼
+Authorization code
+   │
+   │ redirect_uri + code + state
+   ▼
+Your callback URL
+   │
+   │ handleCallback()
+   │   ├─ validate state
+   │   ├─ validate transaction TTL
+   │   ├─ exchange code
+   │   └─ verify identity
+   ▼
+Authenticated session
+   │
+   ├─ getUser()
+   ├─ getSession()
+   ├─ getAccessToken()
+   └─ getValidAccessToken()
+```
+
+PKCE uses the **S256** challenge method. The SDK generates the verifier and challenge for the authorization transaction and keeps the transaction state in browser session storage by default.
+
+### Browser callback
+
+After the provider redirects back to your registered callback URL, pass the callback URL to the SDK's callback handler:
+
+```js
+await client.handleCallback();
+```
+
+The handler validates the OAuth response and the stored transaction before exchanging the authorization code. Applications should not treat the presence of a `code` query parameter alone as proof of authentication.
+
+### Session and tokens
+
+Use the SDK's session helpers instead of reading Ace ID cookies directly:
+
+```js
+const authenticated = client.isAuthenticated();
+const user = await client.getUser();
+const session = client.getSession();
+const accessToken = await client.getValidAccessToken();
+```
+
+When a refresh token is available and supported by the registered client, the SDK can refresh tokens:
+
+```js
+await client.refresh();
+```
+
+The SDK shares an in-flight refresh operation so concurrent calls do not unnecessarily start multiple refresh requests.
+
+### Recommended application structure
+
+A browser application should keep the integration small:
+
+1. Configure the SDK with the Ace ID issuer and the application's exact `redirectUri`.
+2. Start authentication with `signIn()`.
+3. Handle the registered callback with `handleCallback()`.
+4. Establish application UI state from `isAuthenticated()`, `getUser()`, or `getSession()`.
+5. Use `getValidAccessToken()` when a protected API request needs an access token.
+6. Refresh through the SDK rather than implementing a second refresh flow.
+7. Sign out through your application's chosen Ace ID/OIDC logout flow.
+
+### AIDC setup checklist
+
+Before running the flow:
+
+- Create the application in AIDC.
+- Set the **Origin URL** to the application origin when browser-origin validation is required.
+- Add the exact callback under **URL Configs → Redirect URIs**.
+- Configure the required OIDC scopes.
+- Use a public-client configuration with `token_endpoint_auth_method = none` for browser-only applications.
+- Keep confidential client credentials exclusively on the server.
+- Use HTTPS in production.
+
+::: warning SDK API surface
+The SDK API is versioned. The flow above describes the current `ace-id-sdk` integration model; use the installed package's exported client constructor and TypeScript types for the exact initialization signature.
+:::
 
 ## Frequently asked questions
 
