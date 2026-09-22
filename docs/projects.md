@@ -37,3 +37,4 @@ Font files are served through the Typace CDN using the following URL structure:
 
 ```text
 https://typace.ace-base.cc/{fontname}.{ext}
+```
