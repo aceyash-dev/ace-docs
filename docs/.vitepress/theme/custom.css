@@ -1,11 +1,11 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
 /* -------------------------------------------------------------------------- */
 /*  1. Font Imports (Add your font sources here)                              */
 /* -------------------------------------------------------------------------- */
 /* Fonts are loaded above so the theme-without-fonts preset still gets the    */
-/* intended Satoshi + Instrument Serif typography.                             */
+/* intended Inter + Instrument Serif typography.                             */
 
 /* -------------------------------------------------------------------------- */
 /*  2. Root Variables & Dark Mode Overrides                                   */
@@ -46,7 +46,7 @@
   --vp-c-gutter: var(--ace-line);
 
   /* Typography */
-  --vp-font-family-base: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --vp-font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 
   /* Layout specifics */
@@ -94,7 +94,7 @@ html,
 body {
   background: var(--ace-milk);
   color: var(--ace-ink);
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
 }
@@ -139,7 +139,7 @@ body {
 }
 
 .VPNavBarTitle {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   letter-spacing: -0.035em;
 }
@@ -152,7 +152,7 @@ body {
 }
 
 .VPNavBarMenuLink {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -189,7 +189,7 @@ body {
 }
 
 .VPSidebarItem .text {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -302,7 +302,7 @@ body {
 
 .VPHero .text,
 .VPHero .tagline {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .VPHero .text {
@@ -330,7 +330,7 @@ body {
   min-height: 44px;
   padding: 0 20px;
   border-radius: 9px;
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
   transition: all 0.2s ease;
