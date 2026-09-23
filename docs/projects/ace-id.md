@@ -13,6 +13,42 @@ It is an OpenID Connect (OIDC) provider with support for OAuth 2.0 authorization
 AceID is an integration service. You do not clone or self-host AceID. You integrate your application with it.
 :::
 
+## SDK downloads
+
+The application-facing SDK is available for JavaScript/TypeScript and Android.
+
+### JavaScript / TypeScript
+
+Install from npm:
+
+    npm install ace-id-sdk
+
+For a browser-only integration, the package also provides a Vanilla JavaScript browser bundle.
+
+### Android
+
+The Android SDK is a native Kotlin library with a Java-compatible API. It is distributed as an Android Archive (AAR).
+
+**[Download the Android SDK (AAR)](https://github.com/aceyash-dev/ace-id-sdk/releases)**
+
+The download page contains published, versioned Android SDK releases. Do not install the AAR as an APK. Add the downloaded AAR to an Android application's `libs/` directory and reference it from Gradle:
+
+    dependencies {
+        implementation(files("libs/ace-id-sdk-android-<version>.aar"))
+    }
+
+The Android SDK currently targets:
+
+- **Namespace:** `tab.aid.sdk`
+- **Minimum Android version:** API 23
+- **Compile SDK:** API 36
+- **Language:** Kotlin, with Java-compatible public APIs
+- **Authentication:** Authorization Code + PKCE (S256)
+
+::: warning Android release status
+Only use an Android AAR from a published GitHub release. CI build artifacts are development outputs and may change between commits.
+:::
+
 ## Installation
 
 For JavaScript and Node.js applications, install the AceID SDK:
