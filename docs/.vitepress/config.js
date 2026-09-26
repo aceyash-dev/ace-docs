@@ -150,6 +150,9 @@ export default defineConfig({
         text: 'Projects',
         items: [
           { text: 'AceID', link: '/projects/ace-id' },
+          { text: 'AceID API Reference', link: '/projects/ace-id-api' },
+          { text: 'AceID Security', link: '/projects/ace-id-security' },
+          { text: 'AceID SDK Guide', link: '/projects/ace-id-sdk' },
           { text: 'Typace', link: '/projects/typace' },
           { text: 'Typace API Reference', link: '/projects/typace-api' }
         ]
