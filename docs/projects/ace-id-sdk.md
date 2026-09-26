@@ -84,29 +84,43 @@ Applications should always use the SDK callback handler rather than implementing
 
 The exact constructor and options are versioned. Use the TypeScript declarations from the installed package for the current signature.
 
-Conceptually:
+The browser client is `AID`:
 
-```js
-const client = createAceIdClient({
+```ts
+import { AID } from "ace-id-sdk";
+
+const aid = new AID({
   issuer: "https://identity.ace-base.cc",
-  clientId: "your-client-id",
-  redirectUri: "https://example.com/auth/callback"
+  clientId: "my-public-client",
+  redirectUri: "https://example.com/callback"
 });
 ```
 
 Start authentication:
 
-```js
-await client.signIn();
+```ts
+await aid.signIn();
 ```
 
 Handle the callback:
 
-```js
-await client.handleCallback();
+```ts
+const session = await aid.handleCallback();
+console.log(session.user);
 ```
 
-The installed package's exported types are authoritative for exact method signatures.
+The current browser client exposes:
+
+- `signIn()`
+- `handleCallback()`
+- `getSession()`
+- `isAuthenticated()`
+- `getUser()`
+- `getAccessToken()`
+- `getValidAccessToken()`
+- `signOut()`
+
+The installed package's exported TypeScript declarations remain authoritative for exact overloads and option types.
 
 ## Sessions
 
@@ -153,6 +167,55 @@ ace-id-sdk/server
 ```
 
 Use the server export for server-side integration patterns supported by the installed package. Keep confidential credentials and server-side session material out of browser bundles.
+
+## Vanilla JavaScript
+
+The package also provides a browser bundle for applications that do not use npm or a bundler.
+
+The bundle exposes the SDK through the global `AceID` object and includes the browser client and storage/helpers.
+
+Do not use a browser bundle for server-side credentials.
+
+## Android
+
+The repository also contains a native Kotlin Android SDK under `android/`.
+
+Current SDK properties:
+
+- Namespace: `tab.aid.sdk`
+- Minimum Android version: API 23
+- Compile SDK: API 36
+- Authentication: Authorization Code + PKCE (S256)
+- Distribution: Android Archive (AAR)
+
+The Android SDK is native Android code. It is not a WebView wrapper.
+
+For an AAR integration, place the released AAR in the application's `libs/` directory and reference it from Gradle according to the release's artifact name.
+
+The Android workflow uses Authorization Code + PKCE with S256. Keep application secrets out of the Android client because Android applications are public clients.
+
+::: warning Android releases
+Use published Android SDK releases for application builds. CI artifacts are development outputs and should not be treated as stable releases.
+:::
+
+## Server
+
+The package provides a server-specific export:
+
+```ts
+import { AIDServer } from "ace-id-sdk/server";
+
+const aid = new AIDServer({
+  issuer: "https://identity.ace-base.cc",
+  clientId: process.env.ACE_ID_CLIENT_ID!,
+  clientSecret: process.env.ACE_ID_CLIENT_SECRET!
+});
+
+const tokens = await aid.exchangeCode(code, redirectUri);
+const user = await aid.userInfo(tokens.accessToken);
+```
+
+Never import `ace-id-sdk/server` into browser code.
 
 ## Direct OIDC fallback
 
