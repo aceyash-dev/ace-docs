@@ -12,9 +12,13 @@
 
 ### AceID
 
-- [AceID documentation](https://docs.ace-base.cc/projects/ace-id): Authentication and identity infrastructure documentation.
+- [AceID documentation](https://docs.ace-base.cc/projects/ace-id): Product, architecture, OIDC, authentication, sessions, account security, and integration overview.
+- [AceID API Reference](https://docs.ace-base.cc/projects/ace-id-api): Account, Account Logs, onboarding, email verification, passkeys, MFA, devices, connected services, password recovery, OIDC interaction, revocation, logout, and client-management HTTP endpoints.
+- [AceID Security](https://docs.ace-base.cc/projects/ace-id-security): Session, cookie, CSRF/origin, PKCE, password, MFA, passkey, rate-limit, secret, and deployment controls.
+- [AceID SDK Guide](https://docs.ace-base.cc/projects/ace-id-sdk): JavaScript/TypeScript SDK installation, Authorization Code + PKCE flow, callback validation, sessions, token refresh, storage, server integration, and troubleshooting.
 - [AceID provider](https://identity.ace-base.cc/): Production OpenID Connect and OAuth 2.0 identity provider.
-- Covers: OpenID Connect, OAuth 2.0, authorization code flow, PKCE S256, client registration, scopes, UserInfo, account APIs, sessions, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
+- [OIDC discovery](https://identity.ace-base.cc/.well-known/openid-configuration): Authoritative provider metadata and dynamic endpoint configuration.
+- Covers: OpenID Connect, OAuth 2.0, Authorization Code + PKCE S256, client registration, scopes, UserInfo, Account Logs, passkeys, TOTP MFA, sessions, connected services, onboarding, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
 
 ### Typace
 
