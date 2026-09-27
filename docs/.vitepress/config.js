@@ -10,10 +10,6 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
 
-  sitemap: {
-    hostname: SITE
-  },
-
   head: [
     ['link', { rel: 'icon', href: '/icon.png' }],
     ['link', { rel: 'canonical', href: SITE + '/' }],
