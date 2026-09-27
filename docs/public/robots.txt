@@ -10,4 +10,3 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://docs.ace-base.cc/sitemap.xml
