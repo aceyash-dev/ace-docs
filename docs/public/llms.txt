@@ -1,11 +1,11 @@
 # The Ace Base Documentation
 
-> Canonical technical documentation for The Ace Base, an independent technology organization building software, identity infrastructure, typography services, developer tools, and web experiences.
+> Canonical technical documentation for The Ace Base, an independent technology organization building software, identity infrastructure, application infrastructure, typography services, developer tools, and web experiences.
 
 ## Start Here
 
 - [Home](https://docs.ace-base.cc/): High-level overview of the documentation and project map.
-- [About The Ace Base](https://docs.ace-base.cc/about): Organization, team, principles, project lifecycle, and documentation scope.
+- [About The Ace Base](https://docs.ace-base.cc/about): Organization, team, principles, project lifecycle, social links, and documentation scope.
 - [Projects](https://docs.ace-base.cc/projects): Current project index and status.
 
 ## Project Documentation
@@ -19,6 +19,12 @@
 - [AceID provider](https://identity.ace-base.cc/): Production OpenID Connect and OAuth 2.0 identity provider.
 - [OIDC discovery](https://identity.ace-base.cc/.well-known/openid-configuration): Authoritative provider metadata and dynamic endpoint configuration.
 - Covers: OpenID Connect, OAuth 2.0, Authorization Code + PKCE S256, client registration, scopes, UserInfo, Account Logs, passkeys, TOTP MFA, sessions, connected services, onboarding, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
+
+### AIDC
+
+- [AIDC documentation](https://docs.ace-base.cc/projects/aidc): Application configuration, Origin URL DNS verification, TXT challenges, and optional Cloudflare DNS automation.
+- [AIDC](https://aidc.ace-base.cc/): Production AIDC application.
+- Covers: Origin URL verification, DNS TXT challenges, DNS resolver verification, manual TXT setup for non-Cloudflare providers, and optional Cloudflare record creation.
 
 ### Typace
 
@@ -45,6 +51,7 @@ The Typace API and dynamic font pages are generated from the published font cata
 
 - [The Ace Base](https://ace-base.cc/): Official organization website.
 - [GitHub organization](https://github.com/tab-gl): Technical repositories and project source.
+- [Bluesky](https://bsky.app/profile/ace-base.cc): The Ace Base social profile.
 
 ## Retrieval Guidance
 
@@ -54,4 +61,4 @@ For questions about the currently available Typace fonts, use the live catalog a
 
 The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
 
-For authentication questions, consult the AceID page. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
+For authentication questions, consult the AceID page. For application origin and DNS verification questions, consult the AIDC project guide. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
