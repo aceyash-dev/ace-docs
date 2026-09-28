@@ -7,7 +7,7 @@ description: "Learn about The Ace Base, its team, principles, projects, and appr
 
 The Ace Base is an independent technology organization focused on building software, tools, interfaces, and experimental technology.
 
-We create and maintain projects across software development, identity, typography, web experiences, and other areas where technology can be made more useful, capable, and considered.
+We create and maintain projects across software development, identity, application infrastructure, typography, web experiences, and other areas where technology can be made more useful, capable, and considered.
 
 Where Better Begins.
 
@@ -81,6 +81,10 @@ Tools and utilities intended to make development workflows simpler or more capab
 
 Authentication and identity-related systems designed to provide a foundation for applications and services.
 
+### Application Infrastructure
+
+Services that handle application configuration, origin verification, and supporting infrastructure around deployed products.
+
 ### Typography
 
 Projects involving fonts, typefaces, typography tools, and the systems used to work with them.
@@ -136,7 +140,6 @@ Projects under The Ace Base can exist at different stages of development.
 | Archived | Preserved but no longer actively developed |
 | Discontinued | Development has ended |
 
-
 A project's status describes its current state and may change as the work evolves.
 
 ## Documentation
@@ -163,7 +166,6 @@ Developer information
 
 Technical references
 
-
 Each project is documented according to what it actually provides. The documentation is intended to be useful both for understanding a project and for working with it.
 
 ## GitHub
@@ -178,12 +180,11 @@ Ace Yash: @aceyash-dev
 
 Yash Gupta: @acetheticsx
 
-
 ## Social
 
 For updates and announcements:
 
-Bluesky: @ace-base.cc
+[Bluesky: @ace-base.cc](https://bsky.app/profile/ace-base.cc)
 
 The Ace Base
 
@@ -201,7 +202,7 @@ The Ace Base is an independent technology organization focused on building softw
 
 ### What projects does The Ace Base maintain?
 
-The documentation currently covers AceID and Typace. AceID provides identity and authentication infrastructure, while Typace provides font distribution through a public CDN. Project status and additional technical references are documented on the [Projects](/projects) page.
+The documentation currently covers AceID, AIDC, and Typace. AceID provides identity and authentication infrastructure, AIDC provides application and origin configuration, and Typace provides font distribution through a public CDN. Project status and additional technical references are documented on the [Projects](/projects) page.
 
 ### Where is The Ace Base documentation maintained?
 
