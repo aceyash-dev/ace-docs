@@ -153,13 +153,31 @@ export default defineConfig({
       {
         text: 'Projects',
         items: [
-          { text: 'AceID', link: '/projects/ace-id' },
-          { text: 'AceID API Reference', link: '/projects/ace-id-api' },
-          { text: 'AceID Security', link: '/projects/ace-id-security' },
-          { text: 'AceID SDK Guide', link: '/projects/ace-id-sdk' },
-          { text: 'AIDC', link: '/projects/aidc' },
-          { text: 'Typace', link: '/projects/typace' },
-          { text: 'Typace API Reference', link: '/projects/typace-api' }
+          {
+            text: 'Typace',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/projects/typace' },
+              { text: 'API', link: '/projects/typace-api' }
+            ]
+          },
+          {
+            text: 'Ace ID',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/projects/ace-id' },
+              { text: 'API', link: '/projects/ace-id-api' },
+              { text: 'Security', link: '/projects/ace-id-security' },
+              { text: 'SDK', link: '/projects/ace-id-sdk' }
+            ]
+          },
+          {
+            text: 'AIDC',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/projects/aidc' }
+            ]
+          }
         ]
       }
     ],
