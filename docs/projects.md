@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: "Software, tools, and technology projects built and maintained by The Ace Base, including AceID and Typace."
+description: "Software, tools, and technology projects built and maintained by The Ace Base, including AceID, AIDC, and Typace."
 ---
 
 # Projects
@@ -26,6 +26,20 @@ It provides hosted identity infrastructure for account management and authentica
 [SDK Guide →](/projects/ace-id-sdk)
 
 [View The Ace Base on GitHub →](https://github.com/tab-gl)
+
+---
+
+## AIDC
+
+### Application and origin configuration
+
+AIDC provides application configuration and Origin URL verification for The Ace Base ecosystem.
+
+It exposes DNS-based TXT verification for origins, with optional automatic TXT record creation for domains managed by Cloudflare.
+
+**Status:** Active
+
+[Read the AIDC documentation →](/projects/aidc)
 
 ---
 
