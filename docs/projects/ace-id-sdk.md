@@ -122,6 +122,63 @@ The current browser client exposes:
 
 The installed package's exported TypeScript declarations remain authoritative for exact overloads and option types.
 
+## AIDC project configuration
+
+AIDC projects can store their Ace ID integration configuration in a `.aid.json` file. AIDC owns this project configuration; the SDK consumes the configuration supplied by the application.
+
+Example:
+
+```json
+{
+  "issuer": "https://identity.ace-base.cc",
+  "app_id": "your-app-id",
+  "client_id": "your-client-id",
+  "redirect_uri": "https://example.com/callback",
+  "scopes": ["openid", "profile", "email", "offline_access"],
+  "project_type": "web",
+  "framework": "Vite",
+  "sdk": "ace-id-sdk"
+}
+```
+
+The SDK exposes `AIDProjectConfig` and `createAIDFromProjectConfig()`:
+
+```ts
+import {
+  createAIDFromProjectConfig,
+} from "ace-id-sdk";
+
+const aid = createAIDFromProjectConfig(projectConfig);
+```
+
+The adapter maps the AIDC fields to the browser client's configuration:
+
+| AIDC field | SDK field |
+| --- | --- |
+| `issuer` | `issuer` |
+| `client_id` | `clientId` |
+| `redirect_uri` | `redirectUri` |
+| `scopes` | `scope` (space-separated) |
+
+`app_id`, `project_type`, `framework`, and `sdk` remain AIDC project metadata and are not passed to the `AID` constructor.
+
+The SDK does not read `.aid.json` from the filesystem and does not load `.env` files. Project setup, configuration files, and environment synchronization belong to AIDC tooling.
+
+For Node.js or tests, inject an explicit storage implementation:
+
+```ts
+import { AID, MemoryStorage } from "ace-id-sdk";
+
+const aid = new AID({
+  issuer: "https://identity.ace-base.cc",
+  clientId: "test-client",
+  redirectUri: "http://localhost:3000/callback",
+  storage: new MemoryStorage(),
+});
+```
+
+Browser applications use `SessionStorage` by default.
+
 ## Sessions
 
 The SDK exposes session helpers for the authenticated application integration.
