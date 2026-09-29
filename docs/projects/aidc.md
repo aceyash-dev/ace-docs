@@ -49,6 +49,27 @@ Redirect URIs remain application configuration and are separate from Origin URL 
 
 Register exact callback URLs. Do not use wildcard redirect URIs.
 
+## Project configuration
+
+AIDC is also the source of project-level Ace ID configuration. A configured project can contain a `.aid.json` file with the issuer, application/client identifiers, redirect URI, scopes, and project metadata.
+
+Example:
+
+```json
+{
+  "issuer": "https://identity.ace-base.cc",
+  "app_id": "your-app-id",
+  "client_id": "your-client-id",
+  "redirect_uri": "https://example.com/callback",
+  "scopes": ["openid", "profile", "email", "offline_access"],
+  "project_type": "web",
+  "framework": "Vite",
+  "sdk": "ace-id-sdk"
+}
+```
+
+The JavaScript/TypeScript SDK can consume this configuration through `createAIDFromProjectConfig()`. AIDC owns the project file and setup workflow; the SDK does not read `.aid.json` or `.env` files directly.
+
 ## Security notes
 
 - Keep Cloudflare API tokens private.
