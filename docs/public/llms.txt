@@ -50,7 +50,6 @@ The Typace API and dynamic font pages are generated from the published font cata
 ## Organization
 
 - [The Ace Base](https://ace-base.cc/): Official organization website.
-- [GitHub organization](https://github.com/tab-gl): Technical repositories and project source.
 - [Bluesky](https://bsky.app/profile/ace-base.cc): The Ace Base social profile.
 
 ## Retrieval Guidance
