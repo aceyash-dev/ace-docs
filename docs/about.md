@@ -170,10 +170,6 @@ Each project is documented according to what it actually provides. The documenta
 
 ## GitHub
 
-The Ace Base uses GitHub as its primary home for its technical work and project repositories.
-
-Organization: github.com/tab-gl
-
 Team members:
 
 Ace Yash: @aceyash-dev
