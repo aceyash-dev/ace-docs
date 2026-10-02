@@ -25,8 +25,6 @@ It provides hosted identity infrastructure for account management and authentica
 
 [SDK Guide →](/projects/ace-id-sdk)
 
-[View The Ace Base on GitHub →](https://github.com/tab-gl)
-
 ---
 
 ## AIDC
