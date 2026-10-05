@@ -8,7 +8,7 @@ SiteLab starts every crawl at the site root, then seeds the requested target URL
 
 | Setting | Standard | Fast |
 | --- | ---: | ---: |
-| Default pages | 25 | 25 |
+| Default pages | 25 | 12 |
 | Maximum pages | 100 | 12 |
 | Concurrency | 8 | 12 |
 | Discovered URLs | 300 | 300 |
