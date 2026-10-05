@@ -6,7 +6,7 @@ The landing page is focused on target entry, protocol status, scan state, compac
 
 A successful target is handed to Suite through:
 
-/suite?query=<encoded-url>
+/suite?query=encoded-url
 
 Queryless Suite entrypoints redirect back to the scanner.
 
