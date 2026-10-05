@@ -175,6 +175,18 @@ export default defineConfig({
             items: [
               { text: 'Overview', link: '/projects/aidc' }
             ]
+          },
+          {
+            text: 'SiteLab',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/projects/sitelab' },
+              { text: 'API', link: '/projects/sitelab/api' },
+              { text: 'Architecture', link: '/projects/sitelab/architecture' },
+              { text: 'Crawler', link: '/projects/sitelab/crawler' },
+              { text: 'Frontend', link: '/projects/sitelab/frontend' },
+              { text: 'Deployment', link: '/projects/sitelab/deployment' }
+            ]
           }
         ]
       }
