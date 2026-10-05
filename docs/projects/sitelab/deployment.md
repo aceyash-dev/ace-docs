@@ -19,4 +19,4 @@ npm test
 
 The core scanner does not require a database. The short scan cache is process-local.
 
-Production should run behind HTTPS with server-side rate limiting enabled. Monitor request latency, timeouts and crawler errors.
+The production SiteLab deployment is available at `https://sitelab.ace-base.cc/` and runs behind HTTPS with server-side rate limiting enabled. Monitor request latency, timeouts and crawler errors.
