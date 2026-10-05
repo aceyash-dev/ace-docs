@@ -4,7 +4,7 @@ SiteLab is a bounded website-intelligence crawler that turns a URL into crawl ev
 
 ## Product flow
 
-Landing → validate target → /suite?query=<encoded-url> → POST /api/v1/scan → crawl → inspect → diagnose → Suite command center.
+Landing → validate target → /suite?query=encoded-url → POST /api/v1/scan → crawl → inspect → diagnose → Suite command center.
 
 ## Capabilities
 
