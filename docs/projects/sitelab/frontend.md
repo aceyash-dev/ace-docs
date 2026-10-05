@@ -16,7 +16,7 @@ Suite reads the query parameter and automatically starts a full standard scan.
 
 Desktop uses a wide command-center grid. Diagnostic cards use a 12-column layout at large widths and collapse progressively for tablets and phones.
 
-The Suite has no local scan-history UI or browser scan-history storage.
+The Suite has no local scan-history UI or browser scan-history storage. A small first-party cookie notice uses local browser storage only for the notice preference.
 
 ## Intelligence UI
 
@@ -31,7 +31,7 @@ The report includes:
 - scripts, stylesheets, images and resource-host inventory
 - page-level deep metrics and crawl graph
 
-Cards are conditionally rendered when their underlying data exists, rather than showing empty placeholders.
+Cards are conditionally rendered when their underlying data exists, rather than showing empty placeholders. Report rendering also normalizes incomplete API payloads so partial scan data cannot crash the diagnostic UI.
 
 ## Motion
 
