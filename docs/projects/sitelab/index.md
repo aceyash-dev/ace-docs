@@ -72,6 +72,15 @@ The response contains `target`, `scannedAt`, `api`, `pages`, `errors`, `complian
 
 Only HTTP(S) targets are accepted. DNS resolution, private-address rejection, redirect limits, response-size limits and server-side rate limiting apply to scans.
 
+## Production
+
+The live SiteLab service is hosted at https://sitelab.ace-base.cc/.
+
+- Scanner: https://sitelab.ace-base.cc/
+- Health: https://sitelab.ace-base.cc/api/v1/health
+- Scan API: https://sitelab.ace-base.cc/api/v1/scan
+- Suite: https://sitelab.ace-base.cc/suite?query=encoded-url
+
 ## Deployment
 
 The SiteLab repository is source-driven and can be deployed as a Node/Fastify service. The build should use the repository root as the application root and start with `npm start`.
