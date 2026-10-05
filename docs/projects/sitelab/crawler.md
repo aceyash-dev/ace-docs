@@ -2,7 +2,7 @@
 
 ## Scan model
 
-SiteLab starts every crawl from the site root and the requested target URL. The crawler stays within the validated host scope, follows same-host links, and keeps a bounded queue. The root-first behavior makes a deep URL useful without turning the scan into a single-page inspection.
+SiteLab starts every crawl at the site root, then seeds the requested target URL and bounded sitemap URLs when available. Sitemap locations are discovered from common sitemap paths and `robots.txt`. The crawler stays within the validated host scope, follows same-host links, normalizes URLs, ignores non-HTML responses, and keeps a bounded queue. The root-first behavior makes a deep URL useful without turning the scan into a single-page inspection.
 
 ## Limits
 
@@ -20,7 +20,7 @@ Responses using gzip, Brotli or deflate are decoded before HTML analysis while t
 
 ## Page evidence
 
-Pages report HTTP status, response time, title and description lengths, canonical and robots data, language, headings, image and alt coverage, link topology, JSON-LD validity, Open Graph and Twitter/X metadata, security headers, word count, text-to-HTML ratio, DOM size, script/style counts, resource inventory, technology signals and byte counts.
+Pages report HTTP status, response time, content type, response/cache validators, title and description lengths, canonical and robots data, language, headings, image and alt coverage, link topology, JSON-LD validity, Open Graph and Twitter/X metadata, security headers, word count, text-to-HTML ratio, DOM size, script/style counts, resource inventory including fonts, technology signals and byte counts.
 
 ## Site intelligence
 
@@ -36,4 +36,4 @@ Duplicate titles, descriptions and canonicals are analyzed at site level.
 
 Targets are normalized to HTTP(S), DNS answers are resolved and pinned to validated public addresses, private/local destinations are rejected, and every redirect is revalidated against the scan host scope. Redirect chains are bounded and TLS certificate verification is enabled.
 
-The crawler never follows arbitrary external links as crawl targets, and response bodies are size- and time-bounded.
+The crawler never follows arbitrary external links as crawl targets. Sitemap seeds are restricted to the validated host scope, non-HTML resources are excluded from page analysis, and response bodies are size- and time-bounded.
