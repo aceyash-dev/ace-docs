@@ -2,6 +2,8 @@
 
 ## Landing
 
+The production SiteLab scanner is hosted at `https://sitelab.ace-base.cc/`.
+
 The landing page is focused on target entry, protocol status, scan state, compact results and legal navigation. The SEO explanation block sits below the primary scan flow so it does not visually compete with the SiteLab header and scanner.
 
 A successful target is handed to Suite through:
