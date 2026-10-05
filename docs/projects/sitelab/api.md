@@ -38,10 +38,20 @@ Pages can include:
 - scripts, stylesheets, images, fonts and resource hosts
 - DOM, HTML/text bytes, word count and text-to-HTML ratio
 
-Example:
+## Production endpoint
+
+The live SiteLab API is hosted at `https://sitelab.ace-base.cc`.
+
+Health check:
 
 ~~~bash
-curl -X POST https://YOUR-SITELAB-HOST/api/v1/scan   -H 'content-type: application/json'   -d '{"url":"https://example.com","limit":10,"mode":"standard"}'
+curl https://sitelab.ace-base.cc/api/v1/health
+~~~
+
+Example scan:
+
+~~~bash
+curl -X POST https://sitelab.ace-base.cc/api/v1/scan   -H 'content-type: application/json'   -d '{"url":"https://example.com","limit":10,"mode":"standard"}'
 ~~~
 
 ## Security
