@@ -166,7 +166,8 @@ export default defineConfig({
               { text: 'Overview', link: '/projects/ace-id' },
               { text: 'API', link: '/projects/ace-id-api' },
               { text: 'Security', link: '/projects/ace-id-security' },
-              { text: 'SDK', link: '/projects/ace-id-sdk' }
+              { text: 'SDK', link: '/projects/ace-id-sdk' },
+              { text: 'Self-hosting', link: '/projects/ace-id/self-hosting' }
             ]
           },
           {
