@@ -399,6 +399,54 @@ Authorization: Bearer <token>
 
 Client management requires bearer authentication and ownership checks.
 
+## Subscription API
+
+### List plans
+
+```http
+GET /api/subscription/plans
+```
+
+Returns the subscription plans defined by Ace ID.
+
+Current plan definitions are:
+
+| Plan | Monthly price | Applications | Monthly active users |
+| --- | ---: | ---: | ---: |
+| Base | ₹0 | 8 | 5,000 |
+| Core | ₹299 | 15 | 20,000 |
+| Apex | ₹549 | 25 | 50,000 |
+
+### Get current subscription and entitlements
+
+```http
+GET /api/subscription
+```
+
+Returns the authenticated user's effective subscription and entitlement state, including application usage and remaining application capacity.
+
+### Create checkout
+
+```http
+POST /api/subscription/checkout
+```
+
+Starts the subscription checkout flow for a supported paid plan.
+
+### List redemptions
+
+```http
+GET /api/subscription/redemptions
+```
+
+Returns the authenticated user's recorded subscription-benefit redemptions.
+
+### Entitlement enforcement
+
+Application limits and monthly active-user limits are enforced server-side. Client-side plan displays are not the authority for authorization.
+
+The internal AIDC integration uses authenticated service credentials and entitlement headers to read subscription state for application management. Those internal credentials are not application credentials and must not be exposed to browser code.
+
 ## Error handling
 
 JSON APIs generally use an `error` field for machine-readable failure handling.
