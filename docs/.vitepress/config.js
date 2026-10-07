@@ -75,7 +75,9 @@ export default defineConfig({
             ? 'https://typace.ace-base.cc/'
             : project === 'AIDC'
               ? 'https://aidc.ace-base.cc/'
-              : 'https://identity.ace-base.cc/',
+              : project === 'SYT'
+                ? 'https://syt.ace-base.cc/'
+                : 'https://identity.ace-base.cc/',
         documentation: canonical,
         provider: { '@id': `${SITE}/#organization` }
       })
@@ -178,15 +180,10 @@ export default defineConfig({
             ]
           },
           {
-            text: 'SiteLab',
+            text: 'SYT',
             collapsed: true,
             items: [
-              { text: 'Overview', link: '/projects/sitelab' },
-              { text: 'API', link: '/projects/sitelab/api' },
-              { text: 'Architecture', link: '/projects/sitelab/architecture' },
-              { text: 'Crawler', link: '/projects/sitelab/crawler' },
-              { text: 'Frontend', link: '/projects/sitelab/frontend' },
-              { text: 'Deployment', link: '/projects/sitelab/deployment' }
+              { text: 'Overview', link: '/projects/syt' }
             ]
           }
         ]
