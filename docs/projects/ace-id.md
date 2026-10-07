@@ -352,6 +352,40 @@ The package provides ESM, CommonJS, TypeScript declarations, and a dedicated ser
 
 See the [SDK Guide](/projects/ace-id-sdk) for the current integration model.
 
+## Subscription and entitlements
+
+Ace ID now exposes subscription entitlements for application owners.
+
+The current plans defined by the service are:
+
+| Plan | Monthly price | Applications | Monthly active users |
+| --- | ---: | ---: | ---: |
+| Base | ₹0 | 8 | 5,000 |
+| Core | ₹299 | 15 | 20,000 |
+| Apex | ₹549 | 25 | 50,000 |
+
+The service calculates the effective plan and application usage server-side. Application creation is blocked when the owner's application limit is reached, and monthly active-user usage is enforced for owned applications.
+
+The subscription model also includes:
+
+- Subscription status and billing-period metadata.
+- Razorpay-backed subscription records and webhook processing.
+- Owner-only grant, extension, plan-change, and revocation operations.
+- Subscription audit history.
+- Offers, accessories, and redemption records.
+- Entitlement data consumed internally by AIDC.
+
+Relevant authenticated HTTP surfaces include:
+
+```text
+GET  /api/subscription/plans
+GET  /api/subscription
+POST /api/subscription/checkout
+GET  /api/subscription/redemptions
+```
+
+Additional offer and accessory redemption routes are available under `/api/subscription/`. Exact request and response contracts should be taken from the deployed API implementation rather than inferred from documentation examples.
+
 ## Direct OIDC integration
 
 Applications that do not use the SDK can integrate directly with the standard OIDC interfaces:
