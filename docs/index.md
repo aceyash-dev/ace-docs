@@ -47,6 +47,6 @@ Use the project-specific documentation when you need implementation details. Exa
 
 ## Where should I start?
 
-If you are integrating authentication, start with [AceID](/projects/ace-id). If you are configuring an application origin or DNS verification, start with [AIDC](/projects/aidc). If you need web fonts, start with [Typace](/projects/typace). If you are working with the site editing and deployment control plane, start with [SYT](/projects/syt). For organization context or project status, see [About The Ace Base](/about) and [Projects](/projects).
+If you are integrating authentication, start with [AceID](/projects/ace-id). If you are configuring an application origin or DNS verification, start with [AIDC](/projects/aidc). If you need web fonts, start with [Typace](/projects/typace). For organization context or project status, see [About The Ace Base](/about) and [Projects](/projects).
 
 The documentation is maintained alongside the projects it describes and is intended to be useful to both developers and answer engines looking for precise technical information.
