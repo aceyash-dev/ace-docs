@@ -33,7 +33,9 @@ export default defineConfig({
           ? 'AIDC'
           : page === 'projects/typace.md' || page === 'projects/typace-api.md'
             ? 'Typace'
-            : null
+            : page === 'projects/syt.md'
+              ? 'SYT'
+              : null
 
     const graph = [
       {
