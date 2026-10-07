@@ -33,9 +33,7 @@ export default defineConfig({
           ? 'AIDC'
           : page === 'projects/typace.md' || page === 'projects/typace-api.md'
             ? 'Typace'
-            : page === 'projects/syt.md'
-              ? 'SYT'
-              : null
+            : null
 
     const graph = [
       {
@@ -171,7 +169,6 @@ export default defineConfig({
               { text: 'API', link: '/projects/ace-id-api' },
               { text: 'Security', link: '/projects/ace-id-security' },
               { text: 'SDK', link: '/projects/ace-id-sdk' },
-              { text: 'Self-hosting', link: '/projects/ace-id/self-hosting' }
             ]
           },
           {
@@ -179,13 +176,6 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Overview', link: '/projects/aidc' }
-            ]
-          },
-          {
-            text: 'SYT',
-            collapsed: true,
-            items: [
-              { text: 'Overview', link: '/projects/syt' }
             ]
           }
         ]
