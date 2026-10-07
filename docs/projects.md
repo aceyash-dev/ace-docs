@@ -69,5 +69,3 @@ SYT is a GitHub-connected site editing, preview, and deployment platform. It act
 
 **Status:** Active
 
-[Read the SYT documentation →](/projects/syt)
-
