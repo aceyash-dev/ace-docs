@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-description: "Software, tools, and technology projects built and maintained by The Ace Base, including AceID, AIDC, and Typace."
+description: "Software, tools, and technology projects built and maintained by The Ace Base, including AceID, AIDC, Typace, and SYT."
 ---
 
 # Projects
@@ -56,3 +56,18 @@ Font files are served through the Typace CDN using the following URL structure:
 ```text
 https://typace.ace-base.cc/{fontname}.{ext}
 ```
+
+---
+
+## SYT
+
+### Site editing and deployment control plane
+
+SYT is a GitHub-connected site editing, preview, and deployment platform. It acts as the control plane while keeping user-site deployments isolated from the SYT deployment.
+
+**Production:** `https://syt.ace-base.cc`
+
+**Status:** Active
+
+[Read the SYT documentation →](/projects/syt)
+
