@@ -6,7 +6,7 @@ const BLUESKY = 'https://bsky.app/profile/ace-base.cc'
 
 export default defineConfig({
   title: 'ACE-DOCS',
-  description: 'Technical documentation for The Ace Base, including AceID, AIDC, and Typace.',
+  description: 'Technical documentation for The Ace Base, including AceID, AIDC, Typace, and SYT.',
   lang: 'en-US',
   cleanUrls: true,
 
