@@ -67,3 +67,5 @@ For authentication questions, consult the AceID page. For application origin and
 - https://docs.ace-base.cc/projects/ace-id-sdk
 - https://docs.ace-base.cc/projects/ace-id-sdk-android
 - https://docs.ace-base.cc/projects/ace-id-sdk-ios
+
+- https://docs.ace-base.cc/projects/ace-id-sdk-framework-adapters
