@@ -169,6 +169,8 @@ export default defineConfig({
               { text: 'API', link: '/projects/ace-id-api' },
               { text: 'Security', link: '/projects/ace-id-security' },
               { text: 'SDK', link: '/projects/ace-id-sdk' },
+              { text: 'Android SDK', link: '/projects/ace-id-sdk-android' },
+              { text: 'iOS SDK', link: '/projects/ace-id-sdk-ios' },
             ]
           },
           {
