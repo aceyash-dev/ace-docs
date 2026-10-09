@@ -35,7 +35,7 @@
 - [Typace OpenAPI](https://typace.ace-base.cc/api/openapi.json): Machine-readable API specification.
 - [Typace font catalog](https://typace.ace-base.cc/api/fonts): Live JSON catalog of published fonts.
 - [Typace search](https://typace.ace-base.cc/api/search?q=Spectral): Search the live catalog by query.
-- Covers: CSS @font-face, WOFF2, WOFF, OTF, TTF, font weights and styles, HTML, React, Vue, Next.js, Vite, dynamic catalog discovery, font metadata, generated CSS, caching, performance, HTTPS, CORS, troubleshooting, and licensing considerations.
+- Covers: CSS @font-face, WOFF2, WOFF, OTF, TTF, font weights and styles, HTML, React, Vue, Next.js, Vite, dynamic catalog discovery, font metadata, generated CSS, current commit metadata, caching, performance, HTTPS, CORS, troubleshooting, and licensing considerations.
 
 ### Typace API endpoints
 
@@ -43,9 +43,10 @@
 - `GET /api/search?q=...`: Search the current font catalog.
 - `GET /api/fonts/:slug`: Metadata for one font.
 - `GET /api/css/:slug`: Generated CSS @font-face declaration.
+- `GET /api/commit`: Current deployment/source commit metadata, including short SHA, message, timestamp when available, and commit URL.
 - `GET /api/openapi.json`: OpenAPI 3 specification.
 
-The Typace API and dynamic font pages are generated from the published font catalog. Prefer the live API over hardcoded inventories.
+The Typace catalog is generated from the font assets published by the deployment. Use `/api/fonts` as the source of truth. Do not assume raw font asset URLs are HTML pages, or infer a font category from its filename. The `category` field is `serif`, `sans-serif`, or `unknown`; source dates can be null when reliable timestamps are unavailable. Prefer the live API over hardcoded inventories.
 
 ## Organization
 
