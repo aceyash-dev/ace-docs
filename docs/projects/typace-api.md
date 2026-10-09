@@ -22,7 +22,7 @@ The catalog is derived from the font assets published by the deployment. Use the
 | `GET` | `/api/commit` | Read current source revision metadata |
 | `GET` | `/api/openapi.json` | Read the OpenAPI contract |
 
-All documented endpoints respond to `GET` and `OPTIONS` for cross-origin preflight. Unsupported methods return `405 Method Not Allowed` with an `Allow` header and a machine-readable error where the response is JSON.
+All documented endpoints respond to `GET` and `OPTIONS` for cross-origin preflight. Unsupported methods return `405 Method Not Allowed` with an `Allow` header and a machine-readable error where the response is JSON. API endpoints are limited to **10 requests per minute per client IP**. Excess requests receive `429 Too Many Requests`, `Retry-After`, `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset` headers, plus a JSON error with code `RATE_LIMIT_EXCEEDED`. CORS preflight requests are not counted. The limiter is in-memory per serverless runtime, so this is best-effort across multiple Vercel instances rather than a globally coordinated quota.
 
 ## List fonts
 
@@ -145,16 +145,17 @@ Example response:
   "shortSha": "0123456",
   "message": "Improve font catalog metadata",
   "date": "2026-10-09T12:00:00Z",
-  "url": "https://github.com/aceyash-dev/Typace/commit/0123456789abcdef0123456789abcdef01234567",
   "source": "deployment"
 }
 ```
 
-The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `null` if a reliable timestamp cannot be resolved. `source` is `deployment` or `github`. A client can calculate relative time from `date`, while keeping the absolute timestamp available as a tooltip or accessible label.
+The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `null` if a reliable timestamp cannot be resolved. `source` is `deployment` or `github`. The response intentionally omits repository URLs because the source repository is private. A client can calculate relative time from `date`, while keeping the absolute timestamp available as a tooltip or accessible label.
 
 Because the Typace repository is private, the deployment needs a server-side `GITHUB_TOKEN` or `GITHUB_PAT` with read-only repository access to retrieve commit dates when the Vercel deployment does not supply a valid `VERCEL_GIT_COMMIT_AUTHOR_DATE`. Preview and production environments must each have the required variable configured. Never expose that token to browser code. If timestamp lookup is unavailable, `date` correctly remains `null` and the About UI must not invent relative timing. The endpoint caches successful results briefly and does not return credentials.
 
 ## OpenAPI
+
+Clients should respect `Retry-After` and avoid retrying before the specified delay expires.
 
 The machine-readable contract is available at:
 
@@ -186,4 +187,3 @@ Typace is font delivery infrastructure; it does not make every font's licensing 
 - [Current commit metadata](https://typace.ace-base.cc/api/commit)
 - [OpenAPI specification](https://typace.ace-base.cc/api/openapi.json)
 - [LLM-oriented documentation](https://typace.ace-base.cc/llms.txt)
-- [Typace source repository](https://github.com/aceyash-dev/Typace)
