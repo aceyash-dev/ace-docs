@@ -78,29 +78,15 @@ Default timings:
 | Account cache TTL | 30 seconds |
 | Token expiry leeway | 60 seconds |
 
-## AAR build
+## Build and release the AAR
 
-The Android workflow is intentionally **manual-only**. The release build is scoped to tag `0.2.3` and must complete the unit-test and AAR build steps before a release can be created.
+For a versioned AAR build, open GitHub Actions and run **Android SDK** with:
 
-In GitHub Actions, run **Android SDK** and choose:
+- `release_tag: 0.2.3`
 
-- **release_tag:** `0.2.3`
-- **publish_release:** `false` to build and upload only the AAR
-- **publish_release:** `true` to also attempt GitHub Release creation
+This workflow runs Android unit tests, assembles `library-release.aar`, then uploads `ace-id-sdk-android-0.2.3.aar` and its SHA-256 file as a workflow artifact. That artifact is a CI build output, not yet a public release.
 
-The build job runs:
-
-```text
-gradle test assemble
-```
-
-A successful run uploads:
-
-```text
-ace-id-sdk-android-0.2.3.aar
-```
-
-Release creation is deliberately opt-in. Repository-level GitHub Actions token policy must allow release writes for that step to succeed.
+The unified **SDK Release Build** workflow additionally checks the npm package, Android AAR, and iOS Swift Package in one run. After its build/test jobs pass and the release PR is merged, dispatch it from `main` with `version: 0.2.3` and `publish_release: true` to publish the tagged GitHub Release and verified checksums. Do not publish directly from a feature branch.
 
 ## What the SDK does not do
 
