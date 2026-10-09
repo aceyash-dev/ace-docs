@@ -336,4 +336,4 @@ Check:
 - [iOS Swift Package 0.2.3 guide](/projects/ace-id-sdk-ios)
 - [Framework and SSR integration](/projects/ace-id-sdk-framework-adapters)
 
-The Swift Package is defined by `Package.swift`, with product `AceID` and minimum deployment target iOS 15. Swift Package Manager resolves AppAuth-iOS as a dependency. The package source is versioned with the same `0.2.3` source tag as the Android AAR release.
+The Swift Package is defined by `Package.swift`, with product `AceID` and minimum deployment target iOS 15. Swift Package Manager resolves AppAuth-iOS as a dependency. The package source is versioned with the same `0.2.3` source tag as the Android AAR release. After the release PR is merged, the unified **SDK Release Build** workflow can publish the artifacts once the npm package, Android tests/AAR, and iOS Simulator tests all pass.
