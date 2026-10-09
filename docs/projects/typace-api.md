@@ -22,7 +22,7 @@ The catalog is derived from the font assets published by the deployment. Use the
 | `GET` | `/api/commit` | Read current source revision metadata |
 | `GET` | `/api/openapi.json` | Read the OpenAPI contract |
 
-The API also responds to `OPTIONS` for cross-origin preflight requests. Other methods return `405 Method Not Allowed`.
+All documented endpoints respond to `GET` and `OPTIONS` for cross-origin preflight. Unsupported methods return `405 Method Not Allowed` with an `Allow` header and a machine-readable error where the response is JSON.
 
 ## List fonts
 
@@ -42,10 +42,10 @@ Returns a JSON array of published font records.
 | `format` | string | CSS format label: `truetype`, `opentype`, `woff`, or `woff2` |
 | `category` | string | `serif`, `sans-serif`, or `unknown` |
 | `url` | string | Relative URL for the published asset |
-| `createdAt` | string or null | Source creation time, when reliable metadata is available |
-| `updatedAt` | string or null | Source update time, when reliable metadata is available |
+| `createdAt` | null in the current implementation | Per-asset source creation time is not currently available |
+| `updatedAt` | null in the current implementation | Per-asset source update time is not currently available |
 
-Categories are derived from supported embedded font metadata. Typace does not guess a category from a filename. `unknown` means the asset did not provide enough reliable metadata. Dates are `null` when the source cannot establish them reliably.
+Categories are derived from supported embedded font metadata. Typace does not guess a category from a filename. `unknown` means the asset did not provide enough reliable metadata. In the current implementation, `createdAt` and `updatedAt` are always `null` because no reliable per-asset timestamp source is wired into the catalog. Do not use these fields to implement a newest-first sort until timestamp data is added and verified.
 
 ### Example
 
@@ -66,7 +66,7 @@ console.log(fonts);
 GET https://typace.ace-base.cc/api/search?q=Spectral
 ```
 
-The `q` parameter is optional and limited to 200 characters. Search matches normalized terms against the font name, file path, type, and format. When `q` is omitted or empty, the endpoint returns the current catalog.
+The `q` parameter is optional and limited to 200 characters. Search normalizes terms and matches each term against token prefixes from the font name, file path, type, and format. For example, `Ace` matches `Ace Script` without matching `Space Grotesk` merely because `space` contains those letters. When `q` is omitted or empty, the endpoint returns the current catalog.
 
 ```js
 const query = new URLSearchParams({ q: "Spectral" });
@@ -152,7 +152,7 @@ Example response:
 
 The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `null` if a reliable timestamp cannot be resolved. `source` is `deployment` or `github`. A client can calculate relative time from `date`, while keeping the absolute timestamp available as a tooltip or accessible label.
 
-Because the Typace repository is private, the deployment may need a server-side `GITHUB_TOKEN` or `GITHUB_PAT` with read-only repository access to retrieve commit dates. Never expose that token to browser code. The endpoint caches successful results briefly and does not return credentials.
+Because the Typace repository is private, the deployment needs a server-side `GITHUB_TOKEN` or `GITHUB_PAT` with read-only repository access to retrieve commit dates when the Vercel deployment does not supply a valid `VERCEL_GIT_COMMIT_AUTHOR_DATE`. Preview and production environments must each have the required variable configured. Never expose that token to browser code. If timestamp lookup is unavailable, `date` correctly remains `null` and the About UI must not invent relative timing. The endpoint caches successful results briefly and does not return credentials.
 
 ## OpenAPI
 
