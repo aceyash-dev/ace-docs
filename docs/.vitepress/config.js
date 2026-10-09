@@ -23,7 +23,7 @@ export default defineConfig({
   transformHead({ page, title, description }) {
     if (page === '404.md') return []
 
-    const cleanPage = page.replace(/\.md$/, '').replace(/\/index$/, '')
+    const cleanPage = page === 'index.md' ? '' : page.replace(/\.md$/, '').replace(/\/index$/, '')
     const canonical = cleanPage ? `${SITE}/${cleanPage}` : `${SITE}/`
     const project =
       page === 'projects/ace-id.md'
