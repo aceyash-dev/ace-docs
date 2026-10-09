@@ -37,7 +37,7 @@ console.table(fonts.map(({ name, type, format, category, url }) => ({
 })));
 ```
 
-To search, use `GET https://typace.ace-base.cc/api/search?q=QUERY`. See the [API reference](/projects/typace-api) for endpoint parameters, error responses, and the current commit endpoint.
+To search, use `GET https://typace.ace-base.cc/api/search?q=QUERY`. Search uses normalized token-prefix matching to avoid arbitrary substring false positives. See the [API reference](/projects/typace-api) for endpoint parameters, error responses, and the current commit endpoint.
 
 ## Use a font in CSS
 
@@ -112,7 +112,7 @@ Catalog records expose the asset's name, path, file type, CSS format, category, 
 
 - Categories are read from supported embedded font metadata. They are not guessed from filenames.
 - `unknown` means there is not enough reliable metadata to classify the font.
-- `createdAt` and `updatedAt` may be `null` when reliable dates are unavailable.
+- In the current implementation, `createdAt` and `updatedAt` are `null`; reliable per-asset timestamps are not wired into the catalog yet. Do not use these fields for newest-first sorting until this changes.
 - Typace does not infer licensing, foundry, designer, variable axes, weight, style, or glyph coverage unless those details are explicitly provided by a reliable source.
 
 Treat the API response as authoritative for published assets, but check the applicable license separately before redistribution or commercial use.
