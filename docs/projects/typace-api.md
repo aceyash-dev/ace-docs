@@ -145,12 +145,11 @@ Example response:
   "shortSha": "0123456",
   "message": "Improve font catalog metadata",
   "date": "2026-10-09T12:00:00Z",
-  "url": "https://github.com/aceyash-dev/Typace/commit/0123456789abcdef0123456789abcdef01234567",
   "source": "deployment"
 }
 ```
 
-The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `null` if a reliable timestamp cannot be resolved. `source` is `deployment` or `github`. A client can calculate relative time from `date`, while keeping the absolute timestamp available as a tooltip or accessible label.
+The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `null` if a reliable timestamp cannot be resolved. `source` is `deployment` or `github`. The response intentionally contains no repository URL because the source repository is private. A client can calculate relative time from `date`, while keeping the absolute timestamp available as a tooltip or accessible label.
 
 Because the Typace repository is private, the deployment needs a server-side `GITHUB_TOKEN` or `GITHUB_PAT` with read-only repository access to retrieve commit dates when the Vercel deployment does not supply a valid `VERCEL_GIT_COMMIT_AUTHOR_DATE`. Preview and production environments must each have the required variable configured. Never expose that token to browser code. If timestamp lookup is unavailable, `date` correctly remains `null` and the About UI must not invent relative timing. The endpoint caches successful results briefly and does not return credentials.
 
@@ -186,4 +185,3 @@ Typace is font delivery infrastructure; it does not make every font's licensing 
 - [Current commit metadata](https://typace.ace-base.cc/api/commit)
 - [OpenAPI specification](https://typace.ace-base.cc/api/openapi.json)
 - [LLM-oriented documentation](https://typace.ace-base.cc/llms.txt)
-- [Typace source repository](https://github.com/aceyash-dev/Typace)
