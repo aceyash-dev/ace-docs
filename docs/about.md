@@ -15,7 +15,6 @@ The Ace Base is an independent technology organization building software, develo
 
 We build across a few connected areas rather than treating every project as an isolated product.
 
-<|-- VitePress Markdown supports normal content; cards are expressed as links for reliable rendering. --|>
 
 - **Identity and authentication** — sign-in, authorization, sessions, and application identity.
 - **Application infrastructure** — configuration, origin verification, deployment support, and integration tooling.
