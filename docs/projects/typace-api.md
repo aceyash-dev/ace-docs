@@ -22,7 +22,7 @@ The catalog is derived from the font assets published by the deployment. Use the
 | `GET` | `/api/commit` | Read current source revision metadata |
 | `GET` | `/api/openapi.json` | Read the OpenAPI contract |
 
-All documented endpoints respond to `GET` and `OPTIONS` for cross-origin preflight. Unsupported methods return `405 Method Not Allowed` with an `Allow` header and a machine-readable error where the response is JSON.
+All documented endpoints respond to `GET` and `OPTIONS` for cross-origin preflight. Unsupported methods return `405 Method Not Allowed` with an `Allow` header and a machine-readable error where the response is JSON. API endpoints are limited to **10 requests per minute per client IP**. Requests above the limit receive `429 Too Many Requests`, a `Retry-After` header, `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset` headers, plus a JSON error with code `RATE_LIMIT_EXCEEDED`. CORS preflight requests are not counted. The current in-memory limiter is per serverless runtime; requests distributed across multiple Vercel instances can have separate counters, so this is best-effort rather than a strict global quota.
 
 ## List fonts
 
@@ -154,6 +154,8 @@ The SHA and message identify the revision. `date` is an ISO 8601 timestamp or `n
 Because the Typace repository is private, the deployment needs a server-side `GITHUB_TOKEN` or `GITHUB_PAT` with read-only repository access to retrieve commit dates when the Vercel deployment does not supply a valid `VERCEL_GIT_COMMIT_AUTHOR_DATE`. Preview and production environments must each have the required variable configured. Never expose that token to browser code. If timestamp lookup is unavailable, `date` correctly remains `null` and the About UI must not invent relative timing. The endpoint caches successful results briefly and does not return credentials.
 
 ## OpenAPI
+
+Rate-limit headers are present on API responses. Clients should respect `Retry-After` and avoid automatic retries before that delay expires.
 
 The machine-readable contract is available at:
 
