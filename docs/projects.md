@@ -25,6 +25,8 @@ It provides hosted identity infrastructure for account management and authentica
 
 [SDK Guide →](/projects/ace-id-sdk)
 
+[Framework and SSR integration →](/projects/ace-id-sdk-framework-adapters)
+
 ---
 
 ## AIDC
