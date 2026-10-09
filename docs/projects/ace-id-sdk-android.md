@@ -80,11 +80,11 @@ Default timings:
 
 ## AAR build
 
-The Android workflow is intentionally **manual-only**. The release build is scoped to tag `v0.2.3` and must complete the unit-test and AAR build steps before a release can be created.
+The Android workflow is intentionally **manual-only**. The release build is scoped to tag `0.2.3` and must complete the unit-test and AAR build steps before a release can be created.
 
 In GitHub Actions, run **Android SDK** and choose:
 
-- **release_tag:** `v0.2.3`
+- **release_tag:** `0.2.3`
 - **publish_release:** `false` to build and upload only the AAR
 - **publish_release:** `true` to also attempt GitHub Release creation
 
@@ -97,7 +97,7 @@ gradle test assemble
 A successful run uploads:
 
 ```text
-ace-id-sdk-android-v0.2.3.aar
+ace-id-sdk-android-0.2.3.aar
 ```
 
 Release creation is deliberately opt-in. Repository-level GitHub Actions token policy must allow release writes for that step to succeed.
