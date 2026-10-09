@@ -1,6 +1,6 @@
 ---
 title: "Ace ID SDK Guide"
-description: "JavaScript and TypeScript integration guide for the Ace ID SDK."
+description: "JavaScript, TypeScript, Swift and Android integration guide for the Ace ID SDK."
 ---
 
 # Ace ID SDK Guide
@@ -17,7 +17,9 @@ Install:
 npm install ace-id-sdk
 ```
 
-The current package provides:
+The planned `0.2.3` release line includes JavaScript/TypeScript, an iOS Swift Package, and a native Android library. Version `0.2.3` is a release candidate until tagged builds pass and the release is published.
+
+The current JavaScript package provides:
 
 - ESM
 - CommonJS
@@ -247,12 +249,12 @@ Current SDK properties:
 
 The Android SDK is native Android code. It is not a WebView wrapper.
 
-For an AAR integration, place the released AAR in the application's `libs/` directory and reference it from Gradle according to the release's artifact name.
+For a `0.2.3` AAR integration, use `ace-id-sdk-android-v0.2.3.aar` from the GitHub Release once published. Verify the SHA-256 listed on the release page before vendoring the binary. Do not use an Actions artifact as a substitute for a tagged release.
 
 The Android workflow uses Authorization Code + PKCE with S256. Keep application secrets out of the Android client because Android applications are public clients.
 
 ::: warning Android releases
-Use published Android SDK releases for application builds. CI artifacts are development outputs and should not be treated as stable releases.
+Use published Android SDK releases for application builds. Release `v0.2.3` must not be treated as published until its GitHub Release and AAR asset are present. CI artifacts are development outputs and should not be treated as stable releases.
 :::
 
 ## Server
@@ -326,3 +328,11 @@ Check:
 - Whether a password/security change invalidated the session.
 - Whether the browser cleared the configured storage.
 
+
+
+## Native package guides
+
+- [Android SDK 0.2.3 guide](/projects/ace-id-sdk-android)
+- [iOS Swift Package 0.2.3 guide](/projects/ace-id-sdk-ios)
+
+The Swift Package is defined by `Package.swift`, with product `AceID` and minimum deployment target iOS 15. Swift Package Manager resolves AppAuth-iOS as a dependency. The package source is versioned with the same `v0.2.3` source tag as the Android AAR release.
