@@ -23,7 +23,7 @@ AIDC validates the URL and applies the configured origin policy. Removing DNS ow
 
 ### What is no longer required
 
-- No _aceid-challenge.<domain> TXT record.
+- No _aceid-challenge for the domain TXT record.
 - No DNS resolver verification flow.
 - No waiting for TXT-record propagation.
 - No Cloudflare API token or DNS-write permission for Origin URL setup.
