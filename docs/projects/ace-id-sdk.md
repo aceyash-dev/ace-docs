@@ -249,12 +249,12 @@ Current SDK properties:
 
 The Android SDK is native Android code. It is not a WebView wrapper.
 
-For a `0.2.3` AAR integration, use `ace-id-sdk-android-v0.2.3.aar` from the GitHub Release once published. Verify the SHA-256 listed on the release page before vendoring the binary. Do not use an Actions artifact as a substitute for a tagged release.
+For a `0.2.3` AAR integration, use `ace-id-sdk-android-0.2.3.aar` from the GitHub Release once published. Verify the SHA-256 listed on the release page before vendoring the binary. Do not use an Actions artifact as a substitute for a tagged release.
 
 The Android workflow uses Authorization Code + PKCE with S256. Keep application secrets out of the Android client because Android applications are public clients.
 
 ::: warning Android releases
-Use published Android SDK releases for application builds. Release `v0.2.3` must not be treated as published until its GitHub Release and AAR asset are present. CI artifacts are development outputs and should not be treated as stable releases.
+Use published Android SDK releases for application builds. Release `0.2.3` must not be treated as published until its GitHub Release and AAR asset are present. CI artifacts are development outputs and should not be treated as stable releases.
 :::
 
 ## Server
@@ -335,4 +335,4 @@ Check:
 - [Android SDK 0.2.3 guide](/projects/ace-id-sdk-android)
 - [iOS Swift Package 0.2.3 guide](/projects/ace-id-sdk-ios)
 
-The Swift Package is defined by `Package.swift`, with product `AceID` and minimum deployment target iOS 15. Swift Package Manager resolves AppAuth-iOS as a dependency. The package source is versioned with the same `v0.2.3` source tag as the Android AAR release.
+The Swift Package is defined by `Package.swift`, with product `AceID` and minimum deployment target iOS 15. Swift Package Manager resolves AppAuth-iOS as a dependency. The package source is versioned with the same `0.2.3` source tag as the Android AAR release.
