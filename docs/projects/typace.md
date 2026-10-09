@@ -1,704 +1,159 @@
 ---
 title: "Typace"
-description: "Technical documentation for Typace, a font distribution service and CDN for websites and applications."
+description: "Developer guide for Typace, a font discovery library and web font delivery service with a live catalog API."
 ---
 
 # Typace
 
-Typace is a font distribution service from The Ace Base.
+Typace is a font library and font delivery service from The Ace Base. It helps developers discover published font assets and load them over HTTPS without copying the font files into their own application.
 
-It provides font files through the Typace CDN, allowing websites and applications to load fonts directly without bundling the font files into the project.
+**Website:** [typace.ace-base.cc](https://typace.ace-base.cc/)  
+**Live catalog:** [`GET /api/fonts`](https://typace.ace-base.cc/api/fonts)  
+**API reference:** [Typace API](/projects/typace-api)  
+**OpenAPI:** [`/api/openapi.json`](https://typace.ace-base.cc/api/openapi.json)
 
-## Overview
+## How it works
 
-Typace is designed to make font delivery simple:
+1. Query the live catalog to find a published font.
+2. Use the asset `url` and `format` returned by the catalog.
+3. Define the font in CSS with `@font-face`.
+4. Choose only the weights and styles your application uses.
+5. Keep a system fallback so text remains readable if the asset cannot load.
 
-```text
-Your website
-     │
-     │ HTTPS
-     ▼
-Typace CDN
-     │
-     ▼
-Font file
+The catalog is dynamic. A filename shown in an example is illustrative unless it appears in the current API response.
+
+## Find an available font
+
+```js
+const response = await fetch("https://typace.ace-base.cc/api/fonts");
+
+if (!response.ok) {
+  throw new Error(`Typace catalog request failed: ${response.status}`);
+}
+
+const fonts = await response.json();
+console.table(fonts.map(({ name, type, format, category, url }) => ({
+  name, type, format, category, url
+})));
 ```
 
-The CDN is available at:
+To search, use `GET https://typace.ace-base.cc/api/search?q=QUERY`. See the [API reference](/projects/typace-api) for endpoint parameters, error responses, and the current commit endpoint.
 
-```text
-https://typace.ace-base.cc/
+## Use a font in CSS
+
+Use the exact asset path and format reported by the API. For example, after selecting a record:
+
+```js
+const font = fonts[0];
+
+const style = document.createElement("style");
+style.textContent = `
+  @font-face {
+    font-family: ${JSON.stringify(font.name)};
+    src: url(${JSON.stringify(new URL(font.url, "https://typace.ace-base.cc").href)})
+      format(${JSON.stringify(font.format)});
+    font-display: swap;
+  }
+`;
+
+document.head.append(style);
 ```
 
-Individual assets follow this format:
-
-```text
-https://typace.ace-base.cc/{fontname}.{ext}
-```
-
-Replace:
-
-- `{fontname}` with the actual font filename
-- `{ext}` with the file extension
-
-## Getting Started
-
-### Prerequisites
-
-You don't need to install Typace.
-
-You only need:
-
-- A website or application
-- A font available through Typace
-- Internet access for the browser to retrieve the font
-- HTTPS in production
-
-Typace can be used with:
-
-- Plain HTML
-- CSS
-- JavaScript
-- React
-- Vue
-- Svelte
-- Astro
-- Next.js
-- Vite
-- Other web frameworks
-
-The integration is ultimately standard web font loading.
-
-## CDN Usage
-
-### Basic URL
-
-Every Typace asset follows:
-
-```text
-https://typace.ace-base.cc/{fontname}.{ext}
-```
-
-For example, if a font is named `example.woff2`:
-
-```text
-https://typace.ace-base.cc/example.woff2
-```
-
-The filename must match the asset available on the CDN.
-
-## Using Typace with CSS
-
-The most flexible way to use Typace is with CSS `@font-face`.
+For a fixed production stylesheet, copy the verified asset URL and format from the catalog response:
 
 ```css
 @font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-```
-
-Then use the font normally:
-
-```css
-body {
-  font-family: "My Typace Font", sans-serif;
-}
-```
-
-### Using Different Weights
-
-If separate font files are available for different weights, define each weight separately.
-
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}-400.woff2")
-       format("woff2");
+  font-family: "Your Font";
+  src: url("https://typace.ace-base.cc/fonts/REPLACE-WITH-ACTUAL-FILE.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}-500.woff2")
-       format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}-700.woff2")
-       format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-```
-
-Then:
-
-```css
 body {
-  font-family: "My Typace Font", sans-serif;
-  font-weight: 400;
-}
-
-strong {
-  font-weight: 700;
+  font-family: "Your Font", system-ui, sans-serif;
 }
 ```
 
-> The exact filename pattern depends on how the font is published on Typace. Use the actual CDN filenames rather than assuming a weight suffix.
+Replace the example URL and format with a real catalog record. Do not assume every family has WOFF2, a regular weight, an italic style, or a complete set of weights.
 
-### Font Styles
+## Generate CSS through the API
 
-For fonts that provide italic or other styles, declare the appropriate style:
+The CSS endpoint resolves a catalog entry and returns a generated `@font-face` rule:
 
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}-italic.woff2")
-       format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-```
+```js
+const response = await fetch(
+  "https://typace.ace-base.cc/api/css/" + encodeURIComponent(font.name)
+);
 
-Then:
-
-```css
-em {
-  font-family: "My Typace Font", sans-serif;
-  font-style: italic;
-}
-```
-
-## HTML Example
-
-A complete minimal HTML page can use Typace like this:
-
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <title>Typace Example</title>
-
-  <style>
-    @font-face {
-      font-family: "My Typace Font";
-      src: url("https://typace.ace-base.cc/{fontname}.woff2")
-           format("woff2");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    body {
-      font-family: "My Typace Font", sans-serif;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Typace</h1>
-
-  <p>
-    This page uses a font delivered through the Typace CDN.
-  </p>
-</body>
-</html>
-```
-
-Replace the example filename with the actual Typace font asset.
-
-## Using Typace in a Framework
-
-Typace doesn't require a framework-specific package.
-
-The font is loaded through normal CSS.
-
-### React
-
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-display: swap;
+if (!response.ok) {
+  throw new Error(`Typace CSS request failed: ${response.status}`);
 }
 
-:root {
-  font-family: "My Typace Font", sans-serif;
-}
+const css = await response.text();
 ```
 
-### Vue
+This can be useful for tooling, previews, or applications that generate styles dynamically. For ordinary websites, a static CSS declaration is often simpler.
 
-The same CSS approach can be used in a Vue application:
+## Frameworks
 
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-display: swap;
-}
-```
+Typace uses standard web font loading, so no framework-specific package is required.
 
-### Next.js
+- **React / Vue / Svelte:** put the verified `@font-face` declaration in the application's stylesheet.
+- **Next.js / Nuxt / Astro / Vite:** use the same CSS integration and verify the final asset URL after deployment.
+- **Design tools:** use a compatible downloadable asset only when its license permits that use.
 
-Add the `@font-face` declaration to your global stylesheet:
+If your framework provides a first-party font optimization system, compare its self-hosting behavior with CDN loading before choosing an integration.
 
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-display: swap;
-}
-```
+## Metadata accuracy
 
-Then:
+Catalog records expose the asset's name, path, file type, CSS format, category, URL, and source dates where reliable data is available.
 
-```css
-body {
-  font-family: "My Typace Font", sans-serif;
-}
-```
+- Categories are read from supported embedded font metadata. They are not guessed from filenames.
+- `unknown` means there is not enough reliable metadata to classify the font.
+- `createdAt` and `updatedAt` may be `null` when reliable dates are unavailable.
+- Typace does not infer licensing, foundry, designer, variable axes, weight, style, or glyph coverage unless those details are explicitly provided by a reliable source.
 
-No Typace npm package is required for CDN usage.
+Treat the API response as authoritative for published assets, but check the applicable license separately before redistribution or commercial use.
 
+## Performance and caching
 
-## API Reference
-
-Typace exposes a dynamic JSON API for discovering the current font catalog and generating integration data. The API reads the published font files from the Typace deployment rather than relying on a manually maintained font list.
-
-### List fonts
-
-```http
-GET https://typace.ace-base.cc/api/fonts
-```
-
-Returns the current catalog. Each record can include:
-
-- `name`: font name
-- `file`: published filename
-- `type`: file type
-- `format`: browser/CSS format
-- `url`: public font asset path
-- `createdAt`: source/repository creation timestamp when available
-- `updatedAt`: source/repository update timestamp when available
-- `isNew`: optional new-font marker
-
-The catalog currently supports:
-
-- `.woff2`
-- `.woff`
-- `.otf`
-- `.ttf`
-
-Treat the API response as the source of truth. Do not hardcode a font inventory in applications or documentation.
-
-### Search fonts
-
-```http
-GET https://typace.ace-base.cc/api/search?q=Spectral
-```
-
-The search endpoint accepts a `q` query parameter and searches the dynamic catalog.
-
-### Get one font
-
-```http
-GET https://typace.ace-base.cc/api/fonts/Spectral
-```
-
-The font name or filename can be used to resolve a single catalog record.
-
-### Generate CSS
-
-```http
-GET https://typace.ace-base.cc/api/css/Spectral
-```
-
-Returns a generated CSS `@font-face` declaration for the resolved font.
-
-### OpenAPI
-
-Machine-readable API documentation is available at:
-
-```text
-https://typace.ace-base.cc/api/openapi.json
-```
-
-### Machine-readable documentation
-
-The Typace service also publishes an LLM-oriented documentation file:
-
-```text
-https://typace.ace-base.cc/llms.txt
-```
-
-Use it together with the API when answering questions about the live Typace catalog. The API is authoritative for currently available font records.
-
-## Dynamic Font Pages
-
-Each discovered font has a crawlable documentation/resource page:
-
-```text
-https://typace.ace-base.cc/fonts/{font-name}
-```
-
-These pages expose the font name, file, format, download URL, generated CSS endpoint, and machine-readable metadata.
-
-For example:
-
-```text
-https://typace.ace-base.cc/fonts/Spectral
-```
-
-The font pages are generated from the same dynamic catalog used by the API, so new published fonts do not require a manual documentation edit.
-
-## Choosing a Font Format
-
-When multiple formats are available, prefer WOFF2 for modern web applications.
-
-| Format | Extension | Typical use |
-| --- | --- | --- |
-| WOFF2 | `.woff2` | Modern web |
-| WOFF | `.woff` | Older web compatibility |
-| OpenType | `.otf` | Desktop/design workflows |
-| TrueType | `.ttf` | Desktop/general use |
-
-For normal websites:
-
-```text
-.woff2
-```
-
-should generally be your first choice when available.
-
-## Performance
-
-Font files can affect page loading performance.
-
-Use only the weights and styles your application actually needs.
-
-For example, if your site only uses regular and bold:
-
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{regular-font}.woff2")
-       format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{bold-font}.woff2")
-       format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-```
-
-Avoid loading every available weight simply because the files exist.
-
-## font-display
-
-For web fonts, `font-display: swap` is generally useful:
-
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-display: swap;
-}
-```
-
-This allows fallback text to remain visible while the font loads.
-
-## Fallback Fonts
-
-Always provide a fallback.
-
-```css
-body {
-  font-family:
-    "My Typace Font",
-    system-ui,
-    sans-serif;
-}
-```
-
-If the Typace asset cannot be downloaded, the browser can still render readable text.
-
-## Caching
-
-Typace is delivered through the CDN infrastructure.
-
-Browsers and intermediary caches may cache font assets according to the response headers provided by the CDN.
-
-You should therefore reference stable production assets rather than repeatedly changing URLs unnecessarily.
-
-## Vercel
-
-Typace is powered by Vercel.
-
-The public CDN hostname is:
-
-```text
-typace.ace-base.cc
-```
-
-Your application does not need to know how the underlying infrastructure works.
-
-The relationship is:
-
-```text
-Application
-     │
-     │ requests font
-     ▼
-typace.ace-base.cc
-     │
-     ▼
-Vercel infrastructure
-     │
-     ▼
-Font asset
-```
-
-Your application simply consumes the public HTTPS URL.
-
-## Security
-
-Only load Typace assets over HTTPS:
-
-```text
-https://typace.ace-base.cc/{fontname}.{ext}
-```
-
-Do not replace the HTTPS URL with an insecure HTTP URL.
-
-For production applications, make sure the rest of the application is also served over HTTPS.
+- Prefer WOFF2 when the live catalog offers it and it meets your browser support requirements.
+- Load only the weights and styles the interface actually uses.
+- Use `font-display: swap` for a readable fallback during font loading.
+- Include a system fallback in every font stack.
+- Avoid requesting the same font file through multiple URLs.
+- Let the service's response headers govern cache behavior; don't assume an asset is immutable unless its URL/versioning guarantees that.
 
 ## Troubleshooting
 
-### The font isn't loading
+### The font is not loading
 
-Check the browser's developer tools and verify that the font request succeeds.
+1. Confirm the asset appears in [the live catalog](https://typace.ace-base.cc/api/fonts).
+2. Copy the exact `url` value from its record.
+3. Check the browser Network panel for HTTP status and CORS errors.
+4. Verify the URL uses HTTPS and the format label matches the file.
+5. Confirm your Content Security Policy permits the Typace origin under `font-src`.
 
-Check:
+### The wrong weight or style appears
 
-1. The hostname is correct.
-2. The filename is correct.
-3. The extension is correct.
-4. The URL uses HTTPS.
-5. The font file actually exists.
-6. The browser isn't blocking the request.
+Declare only weights and styles that the actual font file supports. Separate files usually need separate `@font-face` declarations; do not label a regular font as bold just because the CSS requests `font-weight: 700`.
 
-Your URL should follow:
+### A font is missing from the catalog
 
-```text
-https://typace.ace-base.cc/{fontname}.{ext}
-```
+The catalog reflects assets in the current deployment. A repository change or pull request does not guarantee that an asset is present in production until the relevant deployment has completed.
 
-### The browser uses the fallback font
+## Licensing
 
-If the request succeeds but the font isn't being applied, check the `font-family` name.
+Each font can have different license terms. Check the applicable license before embedding, modifying, redistributing, self-hosting, or bundling an asset. Access through a CDN does not change the font's underlying license.
 
-For example:
+## Related resources
 
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-}
-```
-
-The same family name must then be used:
-
-```css
-body {
-  font-family: "My Typace Font", sans-serif;
-}
-```
-
-### The font weight looks wrong
-
-Make sure the declared weight matches the font you're loading.
-
-```css
-@font-face {
-  font-family: "My Typace Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-  font-weight: 700;
-}
-```
-
-Then:
-
-```css
-.heading {
-  font-family: "My Typace Font", sans-serif;
-  font-weight: 700;
-}
-```
-
-Don't declare a file as `700` if it is actually a regular font.
-
-### The font works locally but not in production
-
-Check:
-
-- Production HTTPS
-- CDN URL
-- Browser Network requests
-- CORS headers
-- CSP configuration
-- Actual production domain
-
-Also make sure you aren't accidentally using a local development path.
-
-## Developer Guide
-
-Typace is intentionally consumed through the web.
-
-A typical developer workflow is:
-
-```text
-Choose font
-     ↓
-Find CDN asset
-     ↓
-Add @font-face
-     ↓
-Choose weights/styles
-     ↓
-Add fallback
-     ↓
-Test locally
-     ↓
-Deploy
-```
-
-The application owns its typography configuration.
-
-Typace provides the font asset.
-
-## Recommended CSS Pattern
-
-For a production site, keep the declaration explicit:
-
-```css
-@font-face {
-  font-family: "Your Font";
-  src:
-    url("https://typace.ace-base.cc/{fontname}.woff2")
-    format("woff2");
-
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root {
-  --font-sans: "Your Font", system-ui, sans-serif;
-}
-
-body {
-  font-family: var(--font-sans);
-}
-```
-
-This keeps the CDN implementation separate from the rest of your design system.
-
-## Do I need to clone Typace?
-
-No.
-
-Typace is consumed as a CDN service.
-
-You don't need to:
-
-```bash
-git clone ...
-npm install ...
-npm run build
-```
-
-to use a Typace font.
-
-You only need the appropriate public CDN asset.
-
-## Do I need an API key?
-
-CDN font assets are consumed through their public URLs.
-
-If a particular Typace service or asset requires additional authorization, follow the requirements specified for that asset.
-
-Do not put private credentials into client-side code.
-
-## Do I need an npm package?
-
-No.
-
-For CDN usage, standard CSS is enough:
-
-```css
-@font-face {
-  font-family: "Your Font";
-  src: url("https://typace.ace-base.cc/{fontname}.woff2")
-       format("woff2");
-}
-```
-
-## License
-
-Font licensing depends on the specific typeface and its distribution terms.
-
-Check the license associated with the font before:
-
-- Redistributing the font
-- Self-hosting it
-- Packaging it with an application
-- Modifying it
-- Using it outside the permitted scope
-
-Using a font through a CDN does not automatically change its underlying license.
-
-## Frequently asked questions
-
-### Do I need an npm package to use Typace?
-
-No. Typace CDN assets can be consumed with standard CSS `@font-face` declarations and do not require a Typace npm package.
-
-### Which font format should I use with Typace?
-
-For normal modern web applications, WOFF2 is generally the preferred font format when the font is available in that format.
-
-### How do I use a Typace font in CSS?
-
-Use a CSS `@font-face` declaration whose `src` points to the appropriate HTTPS asset on `typace.ace-base.cc`, then reference the declared family in your stylesheet.
+- [Typace API reference](/projects/typace-api)
+- [Live catalog](https://typace.ace-base.cc/api/fonts)
+- [Search API](https://typace.ace-base.cc/api/search)
+- [Commit metadata](https://typace.ace-base.cc/api/commit)
+- [OpenAPI specification](https://typace.ace-base.cc/api/openapi.json)
+- [LLM documentation](https://typace.ace-base.cc/llms.txt)
+- [Typace repository](https://github.com/aceyash-dev/Typace)
