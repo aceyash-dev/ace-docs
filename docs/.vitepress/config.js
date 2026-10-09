@@ -12,7 +12,6 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/icon.png' }],
-    ['link', { rel: 'canonical', href: SITE + '/' }],
     ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }],
     ['meta', { property: 'og:site_name', content: 'The Ace Base Documentation' }],
     ['meta', { property: 'og:type', content: 'website' }],
@@ -24,7 +23,7 @@ export default defineConfig({
   transformHead({ page, title, description }) {
     if (page === '404.md') return []
 
-    const cleanPage = page.replace(/\.md$/, '').replace(/\/index$/, '')
+    const cleanPage = page === 'index.md' ? '' : page.replace(/\.md$/, '').replace(/\/index$/, '')
     const canonical = cleanPage ? `${SITE}/${cleanPage}` : `${SITE}/`
     const project =
       page === 'projects/ace-id.md'
