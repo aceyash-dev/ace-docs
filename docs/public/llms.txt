@@ -22,9 +22,9 @@
 
 ### AIDC
 
-- [AIDC documentation](https://docs.ace-base.cc/projects/aidc): Application configuration, Origin URL DNS verification, TXT challenges, and optional Cloudflare DNS automation.
+- [AIDC documentation](https://docs.ace-base.cc/projects/aidc): Application configuration, DNS-free Origin URL setup, exact redirect URI guidance, and Ace ID project configuration.
 - [AIDC](https://aidc.ace-base.cc/): Production AIDC application.
-- Covers: Origin URL verification, DNS TXT challenges, DNS resolver verification, manual TXT setup for non-Cloudflare providers, and optional Cloudflare record creation.
+- Covers: Origin URL syntax and configuration, no DNS TXT ownership verification, redirect URI registration, .aid.json project configuration, OIDC client setup, and integration security. Origin URL setup does not require _aceid-challenge TXT records, DNS resolver verification, propagation waits, or Cloudflare DNS credentials. Ordinary DNS and HTTPS are still required for network connectivity where applicable.
 
 ### Typace
 
@@ -61,7 +61,7 @@ For questions about the currently available Typace fonts, use the live catalog a
 
 The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
 
-For authentication questions, consult the AceID page. For application origin and DNS verification questions, consult the AIDC project guide. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
+For authentication questions, consult the AceID page. For application Origin URL setup and redirect URI configuration, consult the AIDC project guide. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
 
 
 ## Ace ID SDK native guides
