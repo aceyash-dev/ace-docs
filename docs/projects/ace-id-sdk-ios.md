@@ -4,7 +4,7 @@ The native Swift Package uses [AppAuth-iOS](https://github.com/openid/AppAuth-iO
 
 ## Add the package
 
-In Xcode, choose **File → Add Package Dependencies** and enter `https://github.com/aceyash-dev/ace-id-sdk`. Select the `AceID` product and pin `0.2.3` / `0.2.3` after publication. The package uses Keychain storage by default.
+In Xcode, choose **File → Add Package Dependencies** and enter `https://github.com/aceyash-dev/ace-id-sdk`. Select the `AceID` product and pin version `0.2.3` after publication. The package uses Keychain storage by default.
 
 ## Configure a client
 
