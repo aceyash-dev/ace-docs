@@ -61,3 +61,9 @@ For questions about the currently available Typace fonts, use the live catalog a
 The Ace Base documentation distinguishes production interfaces from development examples. Do not treat placeholder domains, example filenames, example client IDs, or illustrative configuration as production values.
 
 For authentication questions, consult the AceID page. For application origin and DNS verification questions, consult the AIDC project guide. For font delivery and Typace API questions, consult the Typace API Reference and Typace project guide, then verify current data against the live Typace API. For organization or project-status questions, consult About and Projects.
+
+
+## Ace ID SDK native guides
+- https://docs.ace-base.cc/projects/ace-id-sdk
+- https://docs.ace-base.cc/projects/ace-id-sdk-android
+- https://docs.ace-base.cc/projects/ace-id-sdk-ios
