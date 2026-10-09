@@ -171,6 +171,7 @@ export default defineConfig({
               { text: 'SDK', link: '/projects/ace-id-sdk' },
               { text: 'Android SDK', link: '/projects/ace-id-sdk-android' },
               { text: 'iOS SDK', link: '/projects/ace-id-sdk-ios' },
+              { text: 'Framework and SSR', link: '/projects/ace-id-sdk-framework-adapters' },
             ]
           },
           {
