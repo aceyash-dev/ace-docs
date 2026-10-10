@@ -9,6 +9,8 @@ export default defineConfig({
   description: 'Technical documentation for The Ace Base, including AceID, AIDC, Typace, and SYT.',
   lang: 'en-US',
   cleanUrls: true,
+  lastUpdated: false,
+
 
   head: [
     ['link', { rel: 'icon', href: '/icon.png' }],
