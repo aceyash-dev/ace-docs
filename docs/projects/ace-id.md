@@ -26,6 +26,9 @@ Ace ID is a hosted integration service. Applications normally integrate through 
 - Account Logs for sign-ins, profile changes, account changes, and security activity
 - RP-initiated logout and token revocation
 - Browser security protections for state-changing mutations
+- Risk-based step-up verification for high-risk password sign-ins
+- Transactional email alerts for new-device sign-ins and security-sensitive account changes
+- Trusted-device and authentication-challenge revocation during password recovery
 - A first-run onboarding flow for new accounts
 
 ## Documentation map
@@ -310,7 +313,7 @@ A connected service can expose:
 - Connection time
 - Client identifier
 
-Revoking a service removes the associated OIDC grant records and is recorded in Account Logs.
+Revoking a service removes the associated OIDC grant records and is recorded in Account Logs. Grant-linked access and refresh tokens are removed server-side with the grant, so subsequent token lookups fail rather than waiting for a UI refresh. Clients and downstream APIs must still enforce authorization on every request and should handle revoked credentials without caching authorization decisions indefinitely.
 
 ## Logout
 
