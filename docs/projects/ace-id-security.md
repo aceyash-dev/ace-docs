@@ -149,6 +149,22 @@ Protected areas include password login, MFA, passkeys, and device-related operat
 
 The rate guard is intentionally lightweight. Deployments that require distributed or account-level abuse protection should place a shared rate limiter or edge protection in front of the service.
 
+## Adaptive authentication and risk-based step-up
+
+Password sign-ins evaluate a conservative, deterministic risk score using signals Ace ID already records: whether the browser is trusted, recent active-session history, IP-address change, and user-agent change. This is not an ML classifier or an external IP-reputation service.
+
+An unfamiliar browser by itself does not block sign-in. When the score reaches the high-risk threshold, Ace ID requests cross-device approval only when another live trusted session is available to approve the request. Accounts with TOTP MFA already follow the MFA challenge flow. When no safe approval path exists, the adaptive rule does not create an approval request that the user cannot complete.
+
+Risk step-up decisions are recorded in Account Logs with a bounded score and reason codes. Raw session tokens and challenge secrets must never be written to security logs.
+
+## Security notification email
+
+Ace ID sends transactional security notifications through Resend for new-device sign-ins and security-sensitive account changes, including passkey/TOTP changes, password changes and recovery, trusted-device updates, session revocation, account recovery, and connected-application access revocation. GitHub-created accounts receive one welcome email through the central authentication callback.
+
+Production deployments must configure `RESEND_API_KEY` and should explicitly set `RESEND_FROM_EMAIL` to an address on the verified sending domain. `RESEND_FROM_NAME` and `MAIL_FROM` are optional sender overrides. The service uses a verified `ace-base.cc` sender fallback when an API key is configured and no explicit sender is set. An API acceptance response is not proof that a recipient mailbox displayed the email; inspect Resend delivery logs and bounces during production verification.
+
+Email delivery failures are logged without exposing passwords, reset tokens, MFA recovery codes, or session cookies, and a provider outage does not undo a completed account-security change. This preserves the security alert path without turning email delivery into a hidden authentication dependency.
+
 ## OIDC grants
 
 Connected application grants are stored server-side.
