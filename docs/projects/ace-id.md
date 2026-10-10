@@ -366,6 +366,17 @@ The current plans defined by the service are:
 
 The service calculates the effective plan and application usage server-side. Application creation is blocked when the owner's application limit is reached, and monthly active-user usage is enforced for owned applications.
 
+### Subscription screen and app-scoped capabilities
+
+The authenticated Subscription screen groups capabilities by the product they belong to, rather than presenting one unstructured list:
+
+- **Ace ID:** multi-factor authentication, passkeys, session and device management, and username-change policy.
+- **AIDC:** OAuth 2.0 / OpenID Connect, PKCE, developer console, API access, custom domains, and custom database capabilities.
+
+The current entitlement response exposes these capabilities for Base, Core, and Apex. The plans differ in application and monthly-active-user limits, and in the Base username-change cooldown. The UI must not imply that a capability is locked to a paid plan unless Ace ID's server-side entitlement contract explicitly adds that gate.
+
+The feature groups are presentation metadata only. Application limits, monthly-active-user limits, and checkout eligibility remain server-authoritative.
+
 The subscription model also includes:
 
 - Subscription status and billing-period metadata.

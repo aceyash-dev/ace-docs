@@ -188,14 +188,6 @@ export default defineConfig({
 
     outline: { level: [2, 3], label: 'On this page' },
 
-    lastUpdated: {
-      text: 'Last updated',
-      formatOptions: {
-        dateStyle: 'medium',
-        timeStyle: 'short'
-      }
-    },
-
     socialLinks: [
       {
         icon: {

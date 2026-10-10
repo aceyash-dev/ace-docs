@@ -32,6 +32,19 @@ AIDC validates the URL and applies the configured origin policy. Removing DNS ow
 
 Redirect URIs remain separate from Origin URL configuration. Register exact callback URLs and post-logout redirect URLs. Do not use wildcard redirect URIs. OIDC callback validation remains the responsibility of the integrating application and its authentication flow.
 
+## Subscription entitlements
+
+Ace ID is the source of truth for subscriptions, billing, and entitlements. AIDC must consume the authenticated user's effective Ace ID entitlement response and must not maintain a separate subscription or billing state.
+
+The Subscription screen groups shared capabilities by product:
+
+- **Ace ID:** multi-factor authentication, passkeys, sessions/devices, and username-change policy.
+- **AIDC:** OAuth 2.0 / OpenID Connect, PKCE, developer console, API access, custom domains, and custom database capabilities.
+
+In the current contract, these capabilities are exposed across Base, Core, and Apex. The plan-specific differences are usage limits and the Base username-change cooldown. AIDC should display those differences clearly without inventing feature gates that the server does not enforce.
+
+Application and monthly-active-user limits must be enforced server-side. Frontend labels are not an authorization boundary.
+
 ## Project configuration
 
 AIDC is also the source of project-level Ace ID configuration. A configured project can contain a .aid.json file with the issuer, application/client identifiers, redirect URI, scopes, and project metadata.
