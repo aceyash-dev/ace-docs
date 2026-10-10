@@ -18,7 +18,7 @@
 - [AceID SDK Guide](https://docs.ace-base.cc/projects/ace-id-sdk): JavaScript/TypeScript SDK installation, Authorization Code + PKCE flow, callback validation, sessions, token refresh, storage, server integration, and troubleshooting.
 - [AceID provider](https://identity.ace-base.cc/): Production OpenID Connect and OAuth 2.0 identity provider.
 - [OIDC discovery](https://identity.ace-base.cc/.well-known/openid-configuration): Authoritative provider metadata and dynamic endpoint configuration.
-- Covers: OpenID Connect, OAuth 2.0, Authorization Code + PKCE S256, client registration, scopes, UserInfo, Account Logs, passkeys, TOTP MFA, sessions, connected services, onboarding, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
+- Covers: OpenID Connect, OAuth 2.0, Authorization Code + PKCE S256, client registration, scopes, UserInfo, Account Logs, passkeys, TOTP MFA, adaptive sign-in risk scoring and trusted-session step-up, transactional security alerts, password recovery protections, sessions, connected services and server-side grant revocation, onboarding, logout, token revocation, SDK integration, security, deployment, and troubleshooting.
 
 ### AIDC
 
